@@ -190,12 +190,36 @@ function initLandingSelector() {
       });
 
       landingSelector.classList.remove('hidden');
+
+      // Schedule background music to play again after 60s idle gap if it has finished
+      scheduleLandingLoop();
     });
   }
 }
 
 let openingAudio;
 let loopTimeout;
+
+/**
+ * Schedules the background music replay after a 60-second silence gap.
+ * It will only trigger if we are on the landing selector page, the audio is not muted, and it is not already playing.
+ */
+function scheduleLandingLoop() {
+  if (loopTimeout) clearTimeout(loopTimeout);
+  
+  const landingSelector = document.getElementById('landing-selector');
+  const isOnLanding = landingSelector && !landingSelector.classList.contains('hidden');
+
+  if (isOnLanding && !openingAudio.muted && openingAudio.paused) {
+    loopTimeout = setTimeout(() => {
+      // Re-verify that we are still on the landing page and not muted
+      const currentIsOnLanding = landingSelector && !landingSelector.classList.contains('hidden');
+      if (currentIsOnLanding && !openingAudio.muted) {
+        openingAudio.play().catch(err => console.log("Audio loop blocked", err));
+      }
+    }, 60000); // 60 seconds silence gap
+  }
+}
 
 /**
  * Initializes opening background audio and mute/unmute toggle.
@@ -212,22 +236,9 @@ function initAudio() {
   // Make sure toggle button shows unmuted state initially
   audioToggle.classList.remove('muted');
 
-  // Listen for audio ended to trigger a 60-second silence gap before playing again (ONLY if on the landing page)
+  // Listen for audio ended to trigger a 60-second silence gap before playing again
   openingAudio.addEventListener('ended', () => {
-    if (loopTimeout) clearTimeout(loopTimeout);
-    
-    // Only schedule next play if user is currently on the landing selector page
-    const landingSelector = document.getElementById('landing-selector');
-    const isOnLanding = landingSelector && !landingSelector.classList.contains('hidden');
-
-    if (isOnLanding) {
-      loopTimeout = setTimeout(() => {
-        // Respect current mute state before looping
-        if (!openingAudio.muted) {
-          openingAudio.play().catch(err => console.log("Audio loop blocked", err));
-        }
-      }, 60000); // 60 seconds silence gap
-    }
+    scheduleLandingLoop();
   });
 
   // Toggle button click handler
