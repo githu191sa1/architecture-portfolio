@@ -422,18 +422,15 @@ ul {
   border: 1px solid transparent;
   border-radius: 12px;
   box-sizing: border-box;
-  overflow: hidden; /* Clips the image's top corners to match border-radius */
-  transition: transform 0.4s ease-in, box-shadow 0.4s ease-in, background-color 0.4s ease-in, border-color 0.4s ease-in;
+  transition: transform 0.4s ease-in, box-shadow 0.4s ease-in;
 }
 
 .project-card:hover {
   transform: scale(1.03);
-  background-color: rgba(26, 26, 26, 0.45); /* Translucent dark glassmorphism background */
-  border-color: rgba(255, 255, 255, 0.15);
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3),
               0 0 20px rgba(255, 255, 255, 0.1),
               0 0 40px rgba(255, 255, 255, 0.05);
-  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out, border-color 0.3s ease-out;
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
 }
 
 
@@ -443,6 +440,7 @@ ul {
   aspect-ratio: 1 / 1; /* Changed to 1/1 square ratio to match sketches */
   background-color: var(--color-placeholder);
   border: var(--border-width) solid var(--color-border);
+  border-radius: 12px 12px 0 0;
   position: relative;
   overflow: hidden;
   display: flex;
