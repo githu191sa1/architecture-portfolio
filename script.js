@@ -2,6 +2,13 @@ document.addEventListener('DOMContentLoaded', () => {
   renderProjects();
   renderSketches();
   initLandingSelector();
+
+  // Trigger side images slide-in animation
+  setTimeout(() => {
+    document.querySelectorAll('.landing-side-img').forEach(img => {
+      img.classList.add('active');
+    });
+  }, 100);
 });
 
 /**

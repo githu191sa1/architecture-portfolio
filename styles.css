@@ -426,7 +426,7 @@ ul {
   object-fit: contain; /* Contain the image to prevent cropping */
   pointer-events: none;
   z-index: 1; /* Under the cards, but inside landing selector */
-  transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.5s ease;
+  transition: transform 2.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 2.2s cubic-bezier(0.16, 1, 0.3, 1);
   opacity: 0;
 }
 
@@ -434,46 +434,34 @@ ul {
   left: 0;
   width: 35vw;
   transform-origin: bottom left;
-  animation: slideInLeft 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   filter: invert(1) brightness(1.5) contrast(1.15); /* Boost brightness & contrast */
   object-position: left bottom;
+  transform: translateX(-100%) scale(0.95); /* Initial offscreen state */
 }
 
 .landing-side-img-right {
   right: 0;
   width: 25vw; /* Scaled down to ~70% of 35vw */
   transform-origin: bottom right;
-  animation: slideInRight 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   object-position: right bottom;
+  transform: translateX(100%) scale(0.95); /* Initial offscreen state */
 }
 
-/* Animations on load */
-@keyframes slideInLeft {
-  0% {
-    transform: translateX(-100%) scale(0.95);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(-30%) scale(1); /* Slide in 70% of the way (30% remains offscreen) */
-    opacity: 0.95;
-  }
+/* Active State on Load */
+.landing-side-img-left.active {
+  transform: translateX(-30%) scale(1); /* Slide in 70% of the way (30% remains offscreen) */
+  opacity: 0.95;
 }
 
-@keyframes slideInRight {
-  0% {
-    transform: translateX(100%) scale(0.95);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(30%) scale(1); /* Slide in 70% of the way (30% remains offscreen) */
-    opacity: 0.85;
-  }
+.landing-side-img-right.active {
+  transform: translateX(30%) scale(1); /* Slide in 70% of the way (30% remains offscreen) */
+  opacity: 0.85;
 }
 
 /* Fade out when card is selected */
 .landing-side-img.fade-out {
-  animation: none !important; /* Stop the active keyframe animation to let transition work */
   opacity: 0 !important;
+  /* Faster transition for retreat on click */
   transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.2s ease-out;
 }
 
