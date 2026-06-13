@@ -79,28 +79,7 @@ const projects = [
   }
 ];
 
-const sketches = [
-  {
-    id: "sketch-001",
-    title: "京都二年坂街景速寫",
-    location: "日本，京都",
-    image: `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%"><rect width="100" height="100" fill="%23f9f9f9" stroke="%23e0e0e0" stroke-width="1"/><line x1="10" y1="10" x2="90" y2="90" stroke="%23cccccc" stroke-width="0.5"/><line x1="90" y1="10" x2="10" y2="90" stroke="%23cccccc" stroke-width="0.5"/><text x="50" y="50" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23666666" letter-spacing="1">SKETCH DRAWING</text></svg>`
-  },
-  {
-    id: "sketch-002",
-    title: "粗獷主義混凝土光影習作",
-    location: "瑞士，蘇黎世",
-    image: `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%"><rect width="100" height="100" fill="%23f9f9f9" stroke="%23e0e0e0" stroke-width="1"/><line x1="10" y1="10" x2="90" y2="90" stroke="%23cccccc" stroke-width="0.5"/><line x1="90" y1="10" x2="10" y2="90" stroke="%23cccccc" stroke-width="0.5"/><text x="50" y="50" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23666666" letter-spacing="1">SKETCH DRAWING</text></svg>`
-  },
-  {
-    id: "sketch-003",
-    title: "哥德式教堂立面細部",
-    location: "義大利，佛羅倫斯",
-    image: `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%"><rect width="100" height="100" fill="%23f9f9f9" stroke="%23e0e0e0" stroke-width="1"/><line x1="10" y1="10" x2="90" y2="90" stroke="%23cccccc" stroke-width="0.5"/><line x1="90" y1="10" x2="10" y2="90" stroke="%23cccccc" stroke-width="0.5"/><text x="50" y="50" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23666666" letter-spacing="1">SKETCH DRAWING</text></svg>`
-  }
-];
-
 // 匯出資料，供瀏覽器環境或模組使用
 if (typeof module !== 'undefined' && module.exports) {
-  module.exports = { projects, sketches };
+  module.exports = { projects };
 }
