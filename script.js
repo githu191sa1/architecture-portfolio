@@ -202,9 +202,6 @@ function initLandingSelector() {
   }
 }
 
-/**
- * Initializes the navigation bar switches and panel transitions.
- */
 function initNavigation() {
   const navItems = document.querySelectorAll('.hero-nav__item');
   
@@ -212,11 +209,6 @@ function initNavigation() {
     item.addEventListener('click', (e) => {
       e.preventDefault();
       
-      // Play click sound on navigation click
-      const clickAudio = new Audio('./assets/audio/click.mp3');
-      clickAudio.volume = 1.0;
-      clickAudio.play().catch(err => console.log("Navigation sound blocked", err));
-
       const target = item.getAttribute('data-target');
       if (target) {
         switchPanel(`panel-${target}`);
@@ -295,40 +287,17 @@ function scheduleLandingLoop() {
 }
 
 /**
- * Initializes opening background audio and mute/unmute toggle.
+ * Initializes opening background audio.
  */
 function initAudio() {
-  const audioToggle = document.getElementById('audio-toggle');
-  if (!audioToggle) return;
-
   openingAudio = new Audio('./assets/audio/opening.mp3');
   openingAudio.loop = false; // Disable default looping to allow silence gap
   openingAudio.volume = 1.0;
   openingAudio.muted = false; // Default to UNMUTED
 
-  // Make sure toggle button shows unmuted state initially
-  audioToggle.classList.remove('muted');
-
   // Listen for audio ended to trigger a 60-second silence gap before playing again
   openingAudio.addEventListener('ended', () => {
     scheduleLandingLoop();
-  });
-
-  // Toggle button click handler
-  audioToggle.addEventListener('click', (e) => {
-    e.stopPropagation(); // Avoid triggering document click handler
-    
-    // Toggle the HTML5 Audio element muted property directly
-    openingAudio.muted = !openingAudio.muted;
-    
-    if (openingAudio.muted) {
-      if (loopTimeout) clearTimeout(loopTimeout);
-      audioToggle.classList.add('muted');
-      openingAudio.pause(); // Pause when muted to ensure absolute silence
-    } else {
-      audioToggle.classList.remove('muted');
-      openingAudio.play().catch(err => console.log("Audio play blocked", err));
-    }
   });
 
   // Try to play automatically (unmuted) on load
