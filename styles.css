@@ -896,9 +896,37 @@ ul {
   height: 100vh; /* Fill entire height of viewport */
   object-fit: contain; /* Contain the image to prevent cropping */
   pointer-events: none;
-  z-index: 1; /* Under the cards, but inside landing selector */
   transition: transform 2.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 2.2s cubic-bezier(0.16, 1, 0.3, 1);
   opacity: 0;
+}
+
+/* 草圖層 */
+.landing-grass {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  mix-blend-mode: screen;  /* 黑色背景自動消失,只保留白色線條 */
+  z-index: 10;             /* 草的基準層級 */
+  pointer-events: none;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.landing-selector.hidden .landing-grass {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* 左邊刀圖:在草上面 */
+.landing-deco--left {
+  z-index: 15;  /* 高於草 */
+}
+
+/* 右邊武士圖:在草下面 */
+.landing-deco--right {
+  z-index: 5;   /* 低於草 */
 }
 
 .landing-side-img-left {
