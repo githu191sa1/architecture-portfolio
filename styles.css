@@ -17,14 +17,14 @@
   --space-lg: 64px;
   --space-xl: 128px;
 
-  /* 配色(暫定極簡黑白灰,之後調整) */
-  --color-bg: #ffffff;
-  --color-text: #111111;
-  --color-text-secondary: #666666;
-  --color-accent: #000000;
-  --color-border: #e0e0e0;
-  --color-placeholder: #f0f0f0;
-  --color-placeholder-dark: #cccccc;
+  /* 配色(極簡黑白灰 - 深色模式) */
+  --color-bg: #0a0a0a;          /* 深黑背景 */
+  --color-text: #f5f5f5;        /* 淺色文字 */
+  --color-text-secondary: #a0a0a0;  /* 次要文字,中灰 */
+  --color-accent: #ffffff;      /* 強調色改為白 */
+  --color-border: #2a2a2a;      /* 深色邊框 */
+  --color-placeholder: #1a1a1a; /* 圖片佔位深灰 */
+  --color-placeholder-dark: #2a2a2a;
 
   /* Grid */
   --grid-columns: 12;
@@ -96,60 +96,75 @@ ul {
   padding-right: var(--space-md);
 }
 
-/* Navigation Header */
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: var(--header-height);
-  background-color: var(--color-bg);
-  border-bottom: var(--border-width) solid var(--color-border);
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-}
-
-.header__container {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  font-family: var(--font-display);
-  font-size: var(--font-size-body);
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-.nav__list {
-  display: flex;
-  gap: var(--space-md);
-}
-
-.nav__link {
-  font-size: var(--font-size-small);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 500;
-  color: var(--color-text-secondary);
-}
-
-.nav__link:hover {
-  color: var(--color-accent);
-}
-
 /* Hero Section */
 .hero {
   height: var(--hero-height);
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  padding-top: var(--header-height);
+  justify-content: center;
+  text-align: center;
   border-bottom: var(--border-width) solid var(--color-border);
+}
+
+/* 6-Point Navigation Overlay */
+.hero-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.hero-nav__item {
+  position: absolute;
+  font-family: var(--font-display);
+  font-size: calc(var(--font-size-small) * 1.5); /* Enlarged by 1.5x */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  transition: var(--transition-normal);
+  padding: var(--space-sm);
+  pointer-events: auto;
+}
+
+.hero-nav__item:hover {
+  color: var(--color-accent);
+}
+
+.hero-nav__item--top-left {
+  top: var(--space-md);
+  left: var(--space-md);
+}
+
+.hero-nav__item--top-right {
+  top: var(--space-md);
+  right: var(--space-md);
+}
+
+.hero-nav__item--mid-left {
+  top: 50%;
+  left: var(--space-md);
+  transform: translateY(-50%);
+}
+
+.hero-nav__item--mid-right {
+  top: 50%;
+  right: var(--space-md);
+  transform: translateY(-50%);
+}
+
+.hero-nav__item--bottom-left {
+  bottom: var(--space-md);
+  left: var(--space-md);
+}
+
+.hero-nav__item--bottom-right {
+  bottom: var(--space-md);
+  right: var(--space-md);
 }
 
 .hero__content {
@@ -433,28 +448,34 @@ ul {
   :root {
     --space-xl: 64px;
     --space-lg: 32px;
-    --header-height: 70px;
-  }
-
-  .header__container {
-    flex-direction: column;
-    gap: var(--space-sm);
-    justify-content: center;
-    padding-top: var(--space-xs);
-    padding-bottom: var(--space-xs);
-  }
-
-  .header {
-    height: auto;
-    padding-top: var(--space-xs);
-    padding-bottom: var(--space-xs);
-    position: relative; /* Change to relative or keep fixed but adjust padding */
   }
 
   .hero {
+    height: 100vh;
+    height: 100dvh;
+    position: relative;
+  }
+
+  .hero-nav {
+    position: absolute;
+    bottom: var(--space-md);
+    left: 0;
+    width: 100%;
     height: auto;
-    padding-top: var(--space-lg);
-    padding-bottom: var(--space-xl);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+    pointer-events: none;
+  }
+
+  .hero-nav__item {
+    position: static;
+    transform: none !important;
+    text-align: center;
+    padding: var(--space-xs);
+    pointer-events: auto;
   }
 
   .project-card {

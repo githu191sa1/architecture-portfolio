@@ -11,27 +11,19 @@
   <!-- ==================== Background Animation Canvas ==================== -->
   <canvas id="bg-canvas" class="bg-canvas"></canvas>
 
-  <!-- ==================== Header / Navigation ==================== -->
-  <header class="header">
-    <div class="container header__container">
-      <div class="logo">
-        <a href="#hero">YOUR NAME STUDIO</a>
-      </div>
-      <nav class="nav">
-        <ul class="nav__list">
-          <li><a href="#hero" class="nav__link">Home</a></li>
-          <li><a href="#projects" class="nav__link">Projects</a></li>
-          <li><a href="#sketches" class="nav__link">Sketches</a></li>
-          <li><a href="#about" class="nav__link">About</a></li>
-          <li><a href="#contact" class="nav__link">Contact</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
   <main>
     <!-- ==================== Hero Section ==================== -->
     <section id="hero" class="hero">
+      <!-- 6-Point Navigation Overlay -->
+      <nav class="hero-nav">
+        <a href="#hero" class="hero-nav__item hero-nav__item--top-left">Home</a>
+        <a href="#projects" class="hero-nav__item hero-nav__item--top-right">Projects</a>
+        <a href="#sketches" class="hero-nav__item hero-nav__item--mid-left">Sketches</a>
+        <a href="#about" class="hero-nav__item hero-nav__item--mid-right">About</a>
+        <a href="#contact" class="hero-nav__item hero-nav__item--bottom-left">Contact</a>
+        <a href="#footer" class="hero-nav__item hero-nav__item--bottom-right">Social</a>
+      </nav>
+
       <div class="container hero__container">
         <div class="hero__content">
           <h1 class="hero__title">YOUR NAME STUDIO</h1>
@@ -120,7 +112,7 @@
   </main>
 
   <!-- ==================== Footer ==================== -->
-  <footer class="footer">
+  <footer id="footer" class="footer">
     <div class="container footer__container">
       <p class="footer__copy">&copy; 2026 YOUR NAME STUDIO. All rights reserved.</p>
       <div class="footer__links">

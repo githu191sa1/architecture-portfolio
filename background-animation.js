@@ -1,109 +1,91 @@
 /**
- * Background Animation - Fixed Canvas Line Overlay
- * Controls the subtle architectural sliding line animation in the background.
+ * Background Animation - Wave Flowing Particle Field
+ * Renders a slow-drifting, scroll-responsive wave field of particles using HTML5 Canvas.
  */
 
 // 1. CONFIGURATION CONSTANTS (Easily adjustable)
 const CONFIG = {
-  lineCount: 10,                 // Number of lines (suggested: 8-12)
-  widthMin: 1.0,                 // Minimum line width (px)
-  widthMax: 2.0,                 // Maximum line width (px)
-  angleMin: -25,                 // Minimum angle in degrees (pointing up-right)
-  angleMax: -20,                 // Maximum angle in degrees (pointing up-right)
-  lengthMin: 400,                // Minimum line length (px)
-  lengthMax: 900,                // Maximum line length (px)
-  speedMin: 0.4,                 // Minimum horizontal scroll speed multiplier
-  speedMax: 1.4,                 // Maximum horizontal scroll speed multiplier
-  opacityMin: 0.05,              // Minimum opacity for line color
-  opacityMax: 0.18,              // Maximum opacity for line color
-  gradientRatio: 0.7,            // Percentage of lines that have a gradient (0.0 to 1.0)
-  lineBaseColor: '17, 17, 17',   // RGB values for the black lines (rgba format helper)
+  // Particle Properties
+  particleCount: 450,            // Total number of particles (suggested: 300-600)
+  particleColor: '245, 245, 245', // RGB for light gray/white particles (matches dark theme text)
+  sizeMin: 0.6,                  // Minimum particle radius (px)
+  sizeMax: 1.8,                  // Maximum particle radius (px)
+  opacityMin: 0.15,              // Minimum particle base opacity
+  opacityMax: 0.65,              // Maximum particle base opacity
+
+  // Wave Dynamics
+  waveAmplitude: 55,             // Max vertical displacement of the wave (px)
+  waveFrequencyX: 0.005,         // How tight the wave peaks are horizontally
+  scrollSpeed: 0.0018,           // How fast the wave rolls when scrolling
+  timeSpeed: 0.0008,             // Speed of continuous idle wave movement
+
+  // Floating & Drift Dynamics
+  driftSpeedXMin: -0.05,         // Min horizontal idle drift speed (pixels/frame)
+  driftSpeedXMax: 0.12,          // Max horizontal idle drift speed (pixels/frame)
 };
 
-// 2. LINE CLASS DEFINITION
-class AnimatedLine {
+// 2. PARTICLE CLASS DEFINITION
+class WaveParticle {
   constructor(canvasWidth, canvasHeight) {
     this.reset(canvasWidth, canvasHeight, true);
   }
 
   /**
-   * Resets/initializes line properties.
-   * @param {number} canvasWidth - Current canvas width.
-   * @param {number} canvasHeight - Current canvas height.
-   * @param {boolean} isInitial - True if first load, places lines randomly across the screen width.
+   * Initializes or resets particle properties.
    */
   reset(canvasWidth, canvasHeight, isInitial = false) {
-    this.length = Math.random() * (CONFIG.lengthMax - CONFIG.lengthMin) + CONFIG.lengthMin;
+    this.x = Math.random() * canvasWidth;
+    this.baseY = Math.random() * canvasHeight;
+    this.radius = Math.random() * (CONFIG.sizeMax - CONFIG.sizeMin) + CONFIG.sizeMin;
+    this.baseOpacity = Math.random() * (CONFIG.opacityMax - CONFIG.opacityMin) + CONFIG.opacityMin;
+    this.phase = Math.random() * Math.PI * 2; // Random initial angle for wave offset
     
-    // Convert angle to radians
-    const angleDegrees = Math.random() * (CONFIG.angleMax - CONFIG.angleMin) + CONFIG.angleMin;
-    this.angle = angleDegrees * Math.PI / 180;
+    // Each particle has a unique amplitude scaling factor to create natural visual depth
+    this.ampScale = Math.random() * 0.6 + 0.7; // 0.7x to 1.3x amplitude
     
-    this.speed = Math.random() * (CONFIG.speedMax - CONFIG.speedMin) + CONFIG.speedMin;
-    this.width = Math.random() * (CONFIG.widthMax - CONFIG.widthMin) + CONFIG.widthMin;
-    this.opacity = Math.random() * (CONFIG.opacityMax - CONFIG.opacityMin) + CONFIG.opacityMin;
-    this.hasGradient = Math.random() < CONFIG.gradientRatio;
-    
-    // Distribute Y positions randomly across the viewport
-    this.y = Math.random() * canvasHeight;
-
-    // Calculate maximum horizontal space the line occupies due to its angle
-    const maxLineOffset = this.length * Math.abs(Math.cos(this.angle));
-    
-    // Wrap margin to prevent lines from clipping abruptly at boundaries
-    const margin = 100;
-
-    if (isInitial) {
-      // Initially distribute lines across the visible screen width + margins
-      const span = canvasWidth + maxLineOffset + margin * 2;
-      this.initialX = Math.random() * span - maxLineOffset - margin;
-    } else {
-      // If reset during runtime, start completely off-screen on the left
-      this.initialX = -maxLineOffset - margin;
-    }
+    // Constant horizontal drift
+    this.driftX = Math.random() * (CONFIG.driftSpeedXMax - CONFIG.driftSpeedXMin) + CONFIG.driftSpeedXMin;
   }
 
   /**
-   * Renders the line onto the canvas context.
-   * @param {CanvasRenderingContext2D} ctx - 2D drawing context.
-   * @param {number} canvasWidth - Current canvas width.
-   * @param {number} canvasHeight - Current canvas height.
-   * @param {number} scrollY - Current page scroll Y offset.
+   * Updates particle coordinates based on horizontal drift and wave sine math.
+   * @param {number} canvasWidth - Viewport width
+   * @param {number} canvasHeight - Viewport height
+   * @param {number} time - Elapsed time in ms
+   * @param {number} scrollY - Page scroll offset
    */
-  draw(ctx, canvasWidth, canvasHeight, scrollY) {
-    const maxLineOffset = this.length * Math.abs(Math.cos(this.angle));
-    const margin = 100;
-    const span = canvasWidth + maxLineOffset + margin * 2;
-
-    // Calculate current X position incorporating horizontal displacement relative to scroll
-    let currentOffset = (this.initialX + scrollY * this.speed) % span;
-    if (currentOffset < 0) {
-      currentOffset += span; // Ensure offset is positive
+  update(canvasWidth, canvasHeight, time, scrollY) {
+    // 1. Apply horizontal drift and wrap around edges
+    this.x += this.driftX;
+    if (this.x > canvasWidth) {
+      this.x = 0;
+    } else if (this.x < 0) {
+      this.x = canvasWidth;
     }
 
-    // Coordinates for start (bottom-left) and end (top-right)
-    const x1 = currentOffset - maxLineOffset - margin;
-    const y1 = this.y;
-    
-    const x2 = x1 + this.length * Math.cos(this.angle);
-    const y2 = y1 + this.length * Math.sin(this.angle);
+    // Adapt baseY if screen resized smaller
+    if (this.baseY > canvasHeight) {
+      this.baseY = Math.random() * canvasHeight;
+    }
 
+    // 2. Multi-sine wave interference equation for premium, organic movement
+    const mainWave = Math.sin(this.x * CONFIG.waveFrequencyX + scrollY * CONFIG.scrollSpeed + time * CONFIG.timeSpeed + this.phase);
+    const microRipple = Math.cos(this.x * 0.012 - scrollY * 0.0006 + time * 0.0012 + this.phase * 0.5);
+
+    // Composite offset calculation
+    const displacement = (mainWave * 0.75 + microRipple * 0.25) * (CONFIG.waveAmplitude * this.ampScale);
+    this.displayY = this.baseY + displacement;
+  }
+
+  /**
+   * Draws the particle on the canvas context.
+   * @param {CanvasRenderingContext2D} ctx - 2D drawing context.
+   */
+  draw(ctx) {
     ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
-    ctx.lineWidth = this.width;
-
-    if (this.hasGradient) {
-      // Create a linear gradient from tail (transparent x1, y1) to head (solid x2, y2)
-      const grad = ctx.createLinearGradient(x1, y1, x2, y2);
-      grad.addColorStop(0, `rgba(${CONFIG.lineBaseColor}, 0)`);
-      grad.addColorStop(1, `rgba(${CONFIG.lineBaseColor}, ${this.opacity})`);
-      ctx.strokeStyle = grad;
-    } else {
-      ctx.strokeStyle = `rgba(${CONFIG.lineBaseColor}, ${this.opacity})`;
-    }
-
-    ctx.stroke();
+    ctx.arc(this.x, this.displayY, this.radius, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${CONFIG.particleColor}, ${this.baseOpacity})`;
+    ctx.fill();
   }
 }
 
@@ -116,90 +98,72 @@ class AnimatedLine {
   }
 
   const ctx = canvas.getContext('2d');
-  let lines = [];
-  let currentScrollY = window.scrollY;
-  let lastScrollY = -1;
-  let ticking = false;
+  let particles = [];
   let viewportWidth = 0;
   let viewportHeight = 0;
+  let startTime = performance.now();
 
   /**
-   * Resizes canvas to fill viewport, optimizing for high-DPI/Retina screens.
+   * Resizes canvas and scales context for Retina/high-DPI screens.
    */
   function resize() {
     const dpr = window.devicePixelRatio || 1;
     viewportWidth = window.innerWidth;
     viewportHeight = window.innerHeight;
 
-    // Set drawing buffer dimensions scaled by device pixel ratio
+    // Scale drawing buffer
     canvas.width = viewportWidth * dpr;
     canvas.height = viewportHeight * dpr;
 
-    // Set CSS display dimensions to match viewport size
+    // Scale css layout style bounds
     canvas.style.width = `${viewportWidth}px`;
     canvas.style.height = `${viewportHeight}px`;
 
-    // Scale drawing context to ensure crisp crisp rendering
+    // Apply scale matrix transformation for crystal clear rendering
     ctx.scale(dpr, dpr);
 
-    // Reinitialize line instances if screen dimensions change
-    initLines();
-    
-    // Force immediate redraw on resize
-    draw();
-  }
-
-  /**
-   * Creates line instances.
-   */
-  function initLines() {
-    lines = [];
-    for (let i = 0; i < CONFIG.lineCount; i++) {
-      lines.push(new AnimatedLine(viewportWidth, viewportHeight));
+    // Initial allocation of particles
+    if (particles.length === 0) {
+      initParticles();
     }
   }
 
   /**
-   * Draws all line instances.
+   * Allocates particle instances.
    */
-  function draw() {
+  function initParticles() {
+    particles = [];
+    for (let i = 0; i < CONFIG.particleCount; i++) {
+      particles.push(new WaveParticle(viewportWidth, viewportHeight));
+    }
+  }
+
+  /**
+   * Animation tick update loop.
+   * @param {DOMHighResTimeStamp} timestamp - Elapsed time from animation start
+   */
+  function tick(timestamp) {
+    const time = timestamp - startTime;
+    const scrollY = window.scrollY;
+
+    // Clear buffer
     ctx.clearRect(0, 0, viewportWidth, viewportHeight);
-    
-    lines.forEach(line => {
-      line.draw(ctx, viewportWidth, viewportHeight, currentScrollY);
+
+    // Update and draw each particle
+    particles.forEach(particle => {
+      particle.update(viewportWidth, viewportHeight, time, scrollY);
+      particle.draw(ctx);
     });
-  }
 
-  /**
-   * Animation update handler executed inside requestAnimationFrame.
-   */
-  function update() {
-    ticking = false;
-    if (currentScrollY !== lastScrollY) {
-      draw();
-      lastScrollY = currentScrollY;
-    }
-  }
-
-  /**
-   * Requests animation frame update.
-   */
-  function requestTick() {
-    if (!ticking) {
-      requestAnimationFrame(update);
-      ticking = true;
-    }
+    requestAnimationFrame(tick);
   }
 
   // 4. EVENT LISTENERS
   window.addEventListener('resize', resize);
-  
-  // Passive scroll listener for excellent performance
-  window.addEventListener('scroll', () => {
-    currentScrollY = window.scrollY;
-    requestTick();
-  }, { passive: true });
 
-  // Initial Setup
+  // Initial trigger
   resize();
+
+  // Run the render loop continuously
+  requestAnimationFrame(tick);
 })();
