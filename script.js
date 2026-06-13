@@ -120,6 +120,12 @@ function initLandingSelector() {
         img.classList.add('fade-out');
       });
 
+      // Fade out landing quote
+      const quote = document.querySelector('.landing-quote');
+      if (quote) {
+        quote.classList.add('fade-out');
+      }
+
       // 1. Fade out other cards
       cards.forEach(c => {
         if (c !== card) {
@@ -159,7 +165,13 @@ function initLandingSelector() {
       // Reset side images fade-out state
       document.querySelectorAll('.landing-side-img').forEach(img => {
         img.classList.remove('fade-out');
+        img.classList.add('active'); // Re-trigger slide-in
       });
+      // Reset quote fade-out state
+      const quote = document.querySelector('.landing-quote');
+      if (quote) {
+        quote.classList.remove('fade-out');
+      }
       landingSelector.classList.remove('hidden');
     });
   }

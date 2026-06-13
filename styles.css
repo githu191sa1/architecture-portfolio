@@ -418,6 +418,48 @@ ul {
   pointer-events: none;
 }
 
+.landing-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.landing-cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-md);
+  transform: translateY(40px); /* Shift cards down by about 2cm */
+}
+
+.landing-quote {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+  font-weight: 300;
+  color: var(--color-text);
+  letter-spacing: 5px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: fadeInQuote 2.0s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+  margin-bottom: 24px;
+}
+
+.landing-quote.fade-out {
+  opacity: 0 !important;
+  transform: translateY(-40px) !important;
+  transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@keyframes fadeInQuote {
+  to {
+    opacity: 0.85;
+    transform: translateY(0);
+  }
+}
+
 /* Side images for landing screen */
 .landing-side-img {
   position: absolute;
@@ -763,6 +805,29 @@ ul {
 
   .landing-side-img {
     display: none !important;
+  }
+
+  .landing-main {
+    width: 100%;
+    max-width: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+    padding-bottom: var(--space-lg);
+  }
+
+  .landing-cards {
+    flex-direction: column;
+    gap: var(--space-sm);
+    transform: none; /* Reset transform on mobile */
+    width: 100%;
+  }
+
+  .landing-quote {
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+    margin-bottom: 16px;
   }
 
   .landing-selector {
