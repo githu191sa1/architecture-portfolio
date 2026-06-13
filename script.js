@@ -119,6 +119,9 @@ function initLandingSelector() {
       // Ignore transition logic for disabled cards
       if (card.classList.contains('disabled')) return;
 
+      // Clear any pending background music loop timeout when leaving the landing page
+      if (loopTimeout) clearTimeout(loopTimeout);
+
       const target = card.getAttribute('data-target');
 
       // Fade out side images
@@ -209,15 +212,22 @@ function initAudio() {
   // Make sure toggle button shows unmuted state initially
   audioToggle.classList.remove('muted');
 
-  // Listen for audio ended to trigger a 60-second silence gap before playing again
+  // Listen for audio ended to trigger a 60-second silence gap before playing again (ONLY if on the landing page)
   openingAudio.addEventListener('ended', () => {
     if (loopTimeout) clearTimeout(loopTimeout);
-    loopTimeout = setTimeout(() => {
-      // Respect current mute state before looping
-      if (!openingAudio.muted) {
-        openingAudio.play().catch(err => console.log("Audio loop blocked", err));
-      }
-    }, 60000); // 60 seconds silence gap
+    
+    // Only schedule next play if user is currently on the landing selector page
+    const landingSelector = document.getElementById('landing-selector');
+    const isOnLanding = landingSelector && !landingSelector.classList.contains('hidden');
+
+    if (isOnLanding) {
+      loopTimeout = setTimeout(() => {
+        // Respect current mute state before looping
+        if (!openingAudio.muted) {
+          openingAudio.play().catch(err => console.log("Audio loop blocked", err));
+        }
+      }, 60000); // 60 seconds silence gap
+    }
   });
 
   // Toggle button click handler
