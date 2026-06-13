@@ -196,8 +196,13 @@ function initLandingSelector() {
       // Reset panels to home panel for future entry
       switchPanel('panel-home');
 
-      // Schedule background music to play again after 60s idle gap if it has finished
-      scheduleLandingLoop();
+      // If background music has never played (or is at the start and paused), play it immediately!
+      // Otherwise, if it has already played and ended, schedule the 60s loop.
+      if (openingAudio.currentTime === 0 && openingAudio.paused) {
+        openingAudio.play().catch(err => console.log("Play on back button failed", err));
+      } else {
+        scheduleLandingLoop();
+      }
     });
   }
 }
@@ -290,7 +295,9 @@ function scheduleLandingLoop() {
  * Initializes opening background audio.
  */
 function initAudio() {
-  openingAudio = new Audio('./assets/audio/opening.mp3');
+  openingAudio = document.getElementById('bg-music');
+  if (!openingAudio) return;
+
   openingAudio.loop = false; // Disable default looping to allow silence gap
   openingAudio.volume = 1.0;
   openingAudio.muted = false; // Default to UNMUTED
@@ -303,14 +310,22 @@ function initAudio() {
   // Try to play automatically (unmuted) on load
   openingAudio.play().catch(err => {
     console.log("Autoplay blocked, waiting for user interaction.");
-    // If blocked, wait for the first click anywhere on the document to play unmuted
-    const playOnFirstClick = () => {
-      if (!openingAudio.muted) {
-        openingAudio.play().catch(e => console.log("Play on click failed", e));
+    
+    // Set up triggers for first user interaction (click, touch, pointer)
+    const playOnInteraction = () => {
+      if (openingAudio.paused) {
+        openingAudio.play().catch(e => console.log("Play on interaction failed", e));
       }
-      document.removeEventListener('click', playOnFirstClick);
+      // Remove all listeners once played
+      triggers.forEach(trigger => {
+        document.removeEventListener(trigger, playOnInteraction);
+      });
     };
-    document.addEventListener('click', playOnFirstClick);
+
+    const triggers = ['click', 'touchstart', 'pointerdown'];
+    triggers.forEach(trigger => {
+      document.addEventListener(trigger, playOnInteraction);
+    });
   });
 }
 
