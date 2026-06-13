@@ -362,7 +362,7 @@ ul {
 /* Projects Grid Section */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  grid-template-columns: repeat(3, 1fr); /* 3 columns layout by default */
   gap: var(--grid-gap);
   opacity: 1;
   transition: opacity 0.2s ease-in-out; /* Smooth transition for pagination fade */
@@ -413,7 +413,6 @@ ul {
 }
 
 .project-card {
-  grid-column: span 4; /* 3 columns layout by default */
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
@@ -1160,8 +1159,8 @@ ul {
     --space-lg: 48px;
   }
   
-  .project-card {
-    grid-column: span 6; /* 2 columns layout on tablets */
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns layout on tablets */
   }
 
   .projects-pagination {
@@ -1292,8 +1291,8 @@ ul {
     display: none !important; /* Hide global copyright and decoration on mobile */
   }
 
-  .project-card {
-    grid-column: span 12; /* 1 column layout on mobile */
+  .projects-grid {
+    grid-template-columns: 1fr; /* 1 column layout on mobile */
   }
 
 
