@@ -1,5 +1,9 @@
+let currentPage = 1;
+const PROJECTS_PER_PAGE = 3;
+
 document.addEventListener('DOMContentLoaded', () => {
   renderProjects();
+  initProjectsPagination();
   initLandingSelector();
   initNavigation();
   initAudio();
@@ -14,10 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Renders the projects list into the projects grid container.
+ * Renders the projects list into the projects grid container with pagination support.
  */
 function renderProjects() {
   const container = document.getElementById('projects-container');
+  const indicator = document.getElementById('pagination-indicator');
+  const prevBtn = document.getElementById('pagination-prev');
+  const nextBtn = document.getElementById('pagination-next');
+  
   if (!container) return;
 
   if (typeof projects === 'undefined' || !Array.isArray(projects)) {
@@ -25,9 +33,30 @@ function renderProjects() {
     return;
   }
 
+  // Calculate pages
+  const totalPages = Math.ceil(projects.length / PROJECTS_PER_PAGE);
+  if (currentPage > totalPages) currentPage = totalPages;
+  if (currentPage < 1) currentPage = 1;
+
+  // Update indicators and button states
+  if (indicator) {
+    indicator.textContent = `Page ${currentPage} / ${totalPages}`;
+  }
+  if (prevBtn) {
+    prevBtn.disabled = (currentPage === 1);
+  }
+  if (nextBtn) {
+    nextBtn.disabled = (currentPage === totalPages);
+  }
+
   container.innerHTML = ''; // Clear skeleton placeholders if any
 
-  projects.forEach(project => {
+  // Slice projects for current page
+  const start = (currentPage - 1) * PROJECTS_PER_PAGE;
+  const end = start + PROJECTS_PER_PAGE;
+  const pageProjects = projects.slice(start, end);
+
+  pageProjects.forEach(project => {
     const card = document.createElement('article');
     card.className = 'project-card';
     card.setAttribute('data-id', project.id);
@@ -52,6 +81,50 @@ function renderProjects() {
 
     container.appendChild(card);
   });
+}
+
+/**
+ * Initializes click event listeners for the projects pagination buttons.
+ */
+function initProjectsPagination() {
+  const prevBtn = document.getElementById('pagination-prev');
+  const nextBtn = document.getElementById('pagination-next');
+
+  if (!prevBtn || !nextBtn) return;
+
+  prevBtn.addEventListener('click', () => {
+    if (currentPage > 1) {
+      changeProjectsPage(currentPage - 1);
+    }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    const totalPages = Math.ceil(projects.length / PROJECTS_PER_PAGE);
+    if (currentPage < totalPages) {
+      changeProjectsPage(currentPage + 1);
+    }
+  });
+}
+
+/**
+ * Changes the active projects grid page with a smooth fade out/in transition.
+ * @param {number} newPage - The page number to switch to.
+ */
+function changeProjectsPage(newPage) {
+  const container = document.getElementById('projects-container');
+  if (!container) return;
+
+  // 1. Smoothly fade out container
+  container.style.opacity = '0';
+
+  setTimeout(() => {
+    // 2. Update page index and re-render
+    currentPage = newPage;
+    renderProjects();
+
+    // 3. Smoothly fade in container
+    container.style.opacity = '1';
+  }, 200);
 }
 
 

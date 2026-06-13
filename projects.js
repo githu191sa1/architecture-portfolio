@@ -76,6 +76,58 @@ const projects = [
         `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%231a1a1a" stroke="%232e2e2e" stroke-width="1"/><circle cx="50" cy="37.5" r="15" fill="none" stroke="%233a3a3a" stroke-width="0.5"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">PROJECT RENDER</text></svg>`
       ]
     }
+  },
+  {
+    id: "proj-004",
+    title: "幾何懸浮別墅",
+    subtitle: "Suspended Geometric Villa",
+    year: 2024,
+    season: "Summer",
+    type: "Residential",
+    category: "Architecture",
+    coverImage: `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%"><rect width="100" height="100" fill="%23181818" stroke="%232e2e2e" stroke-width="1"/><text x="50" y="50" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23a0a0a0" letter-spacing="1">PROJECT COVER</text></svg>`,
+    tags: ["懸挑結構", "參數化幾何", "視覺對焦"],
+    tools: ["Rhino", "Grasshopper", "Lumion"],
+    details: {
+      overview: {
+        text: "本別墅設計立足於險峻的山壁之上，主體結構採用巨型幾何鋼箱樑懸挑出山體表面，創造出令人驚嘆的懸浮感與向谷地無限延伸的景觀視野。立面採用耐候鋼板與大片防眩光玻璃，將粗獷的地質質感與當代精準工藝完美交融。",
+        images: [
+          `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%23181818" stroke="%232e2e2e" stroke-width="1"/><rect x="5" y="5" width="90" height="65" fill="none" stroke="%233a3a3a" stroke-width="0.5" stroke-dasharray="2,2"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">DESIGN BOARD / DIAGRAM</text></svg>`
+        ]
+      },
+      plans: [
+        `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%23121212" stroke="%232e2e2e" stroke-width="1"/><line x1="20" y1="15" x2="80" y2="15" stroke="%233a3a3a" stroke-width="0.5"/><line x1="20" y1="35" x2="80" y2="35" stroke="%233a3a3a" stroke-width="0.5"/><line x1="20" y1="55" x2="80" y2="55" stroke="%233a3a3a" stroke-width="0.5"/><line x1="35" y1="15" x2="35" y2="60" stroke="%233a3a3a" stroke-width="0.5"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">FLOOR PLAN DRAWING</text></svg>`
+      ],
+      renders: [
+        `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%231a1a1a" stroke="%232e2e2e" stroke-width="1"/><circle cx="50" cy="37.5" r="15" fill="none" stroke="%233a3a3a" stroke-width="0.5"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">PROJECT RENDER</text></svg>`
+      ]
+    }
+  },
+  {
+    id: "proj-005",
+    title: "水岸生態特區",
+    subtitle: "Waterfront Ecological Zone",
+    year: 2024,
+    season: "Spring",
+    type: "Planning",
+    category: "Design",
+    coverImage: `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%"><rect width="100" height="100" fill="%23181818" stroke="%232e2e2e" stroke-width="1"/><text x="50" y="50" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23a0a0a0" letter-spacing="1">PROJECT COVER</text></svg>`,
+    tags: ["生態修復", "海綿城市", "親水景觀"],
+    tools: ["AutoCAD", "QGIS", "Photoshop"],
+    details: {
+      overview: {
+        text: "以生態永續與親水防洪為核心的都市水岸更新計劃。利用階梯式人工濕地、透水鋪面與雨水花園構築起海綿城市的微循環系統，有效過濾都市地表逕流，同時建立供居民漫步與動植物棲息的綠色廊道。",
+        images: [
+          `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%23181818" stroke="%232e2e2e" stroke-width="1"/><rect x="5" y="5" width="90" height="65" fill="none" stroke="%233a3a3a" stroke-width="0.5" stroke-dasharray="2,2"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">DESIGN BOARD / DIAGRAM</text></svg>`
+        ]
+      },
+      plans: [
+        `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%23121212" stroke="%232e2e2e" stroke-width="1"/><line x1="20" y1="15" x2="80" y2="15" stroke="%233a3a3a" stroke-width="0.5"/><line x1="20" y1="35" x2="80" y2="35" stroke="%233a3a3a" stroke-width="0.5"/><line x1="20" y1="55" x2="80" y2="55" stroke="%233a3a3a" stroke-width="0.5"/><line x1="35" y1="15" x2="35" y2="60" stroke="%233a3a3a" stroke-width="0.5"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">FLOOR PLAN DRAWING</text></svg>`
+      ],
+      renders: [
+        `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%231a1a1a" stroke="%232e2e2e" stroke-width="1"/><circle cx="50" cy="37.5" r="15" fill="none" stroke="%233a3a3a" stroke-width="0.5"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">PROJECT RENDER</text></svg>`
+      ]
+    }
   }
 ];
 

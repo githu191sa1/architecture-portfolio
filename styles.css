@@ -364,6 +364,52 @@ ul {
   display: grid;
   grid-template-columns: repeat(var(--grid-columns), 1fr);
   gap: var(--grid-gap);
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out; /* Smooth transition for pagination fade */
+}
+
+/* Projects Pagination Controls */
+.projects-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Align to the bottom-right */
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+  padding-right: var(--space-xs);
+  font-family: var(--font-display);
+}
+
+.pagination-btn {
+  background: none;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  font-family: var(--font-display);
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  letter-spacing: 1px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+}
+
+.pagination-btn:hover:not(:disabled) {
+  color: var(--color-text);
+  border-color: var(--color-text);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.pagination-btn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.pagination-indicator {
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
 .project-card {
@@ -1098,6 +1144,11 @@ ul {
   
   .project-card {
     grid-column: span 6; /* 2 columns layout on tablets */
+  }
+
+  .projects-pagination {
+    justify-content: center;
+    padding-right: 0;
   }
 
 
