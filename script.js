@@ -113,14 +113,14 @@ function initLandingSelector() {
         img.classList.add('fade-out');
       });
 
-      if (target === 'portfolio') {
-        // 1. Fade out other cards
-        cards.forEach(c => {
-          if (c !== card) {
-            c.classList.add('fade-out');
-          }
-        });
+      // 1. Fade out other cards
+      cards.forEach(c => {
+        if (c !== card) {
+          c.classList.add('fade-out');
+        }
+      });
 
+      if (target === 'portfolio') {
         // 2. Zoom the clicked card
         card.classList.add('active-zoom');
 
@@ -134,11 +134,13 @@ function initLandingSelector() {
         }, 950);
       } 
       else if (target === 'ai-project') {
-        // Show Coming Soon screen
-        landingSelector.classList.add('hidden');
-        if (aiPlaceholder) {
-          aiPlaceholder.classList.remove('hidden');
-        }
+        // 2. Smooth transition to AI placeholder (800ms to allow slide-out)
+        setTimeout(() => {
+          landingSelector.classList.add('hidden');
+          if (aiPlaceholder) {
+            aiPlaceholder.classList.remove('hidden');
+          }
+        }, 800);
       }
     });
   });

@@ -422,26 +422,28 @@ ul {
 .landing-side-img {
   position: absolute;
   bottom: 0;
-  height: 90vh; /* Taller for commanding presence */
-  max-width: 32vw;
-  object-fit: contain;
+  height: 100vh; /* Fill entire height of viewport */
+  width: 35vw; /* Set fixed width to allow cropping */
+  object-fit: cover; /* Fill the area without distortion */
   pointer-events: none;
   z-index: 1; /* Under the cards, but inside landing selector */
-  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.2s ease;
-  opacity: 0; /* Animated to 0.75 on load */
+  transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.5s ease;
+  opacity: 0;
 }
 
 .landing-side-img-left {
   left: 0;
   transform-origin: bottom left;
   animation: slideInLeft 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  filter: invert(1);
+  filter: invert(1) brightness(1.5) contrast(1.15); /* Boost brightness & contrast */
+  object-position: left center;
 }
 
 .landing-side-img-right {
   right: 0;
   transform-origin: bottom right;
   animation: slideInRight 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  object-position: right center;
 }
 
 /* Animations on load */
@@ -452,7 +454,7 @@ ul {
   }
   100% {
     transform: translateX(0) scale(1);
-    opacity: 0.75;
+    opacity: 0.95; /* Brighter */
   }
 }
 
@@ -463,22 +465,23 @@ ul {
   }
   100% {
     transform: translateX(0) scale(1);
-    opacity: 0.75;
+    opacity: 0.85; /* Symmetrical balance */
   }
 }
 
 /* Fade out when card is selected */
 .landing-side-img.fade-out {
+  animation: none !important; /* Stop the active keyframe animation to let transition work */
   opacity: 0 !important;
-  transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.8s ease-out;
+  transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.2s ease-out;
 }
 
 .landing-side-img-left.fade-out {
-  transform: translateX(-60px) scale(0.95) !important;
+  transform: translateX(-150px) scale(0.95) !important; /* Retreat left */
 }
 
 .landing-side-img-right.fade-out {
-  transform: translateX(60px) scale(0.95) !important;
+  transform: translateX(150px) scale(0.95) !important; /* Retreat right */
 }
 
 .landing-card {
