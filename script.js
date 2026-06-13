@@ -46,10 +46,7 @@ function renderProjects() {
       </div>
       <div class="project-card__info">
         <h3 class="project-card__title">${project.title}</h3>
-        <div class="project-card__meta">
-          <span class="project-card__type">${project.type}</span>
-          <span class="project-card__year">${project.year}</span>
-        </div>
+        <span class="project-card__meta">${project.type} · ${project.year}</span>
       </div>
     `;
 
