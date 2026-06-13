@@ -112,7 +112,8 @@ ul {
 .hero-nav {
   position: fixed; /* Fixed relative to viewport */
   top: 50%;
-  right: var(--space-lg); /* Place it on the right side with generous margin */
+  right: var(--space-md); /* Center navbar cleanly in the right margin margin */
+  width: 140px; /* Explicit width as requested to prevent overlap */
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
@@ -139,7 +140,10 @@ ul {
               background-color var(--transition-normal),
               color var(--transition-normal),
               border-color var(--transition-normal);
-  display: inline-block;
+  display: block; /* Change to block to allow full width sizing */
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
   white-space: nowrap;
   pointer-events: auto; /* Enable clicks */
 }
@@ -476,22 +480,39 @@ ul {
 /* Project Detail View Layout */
 .project-detail {
   position: absolute;
-  top: var(--space-xl);
-  left: var(--space-lg);
-  right: calc(var(--space-lg) + 120px); /* Aligns perfectly with the grid view's right boundary and prevents nav overlap */
-  bottom: var(--space-xl);
-  display: flex;
-  gap: var(--space-lg);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease-out, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
+  transition: opacity 0.5s ease-out;
+  z-index: 10;
 }
 
 .project-detail.active {
   opacity: 1;
-  transform: translateY(0);
   pointer-events: auto;
+}
+
+.project-detail.hidden {
+  display: none !important;
+}
+
+.detail-container {
+  position: fixed;
+  top: var(--space-lg);
+  left: var(--space-lg);
+  right: 200px; /* 172px nav edge + 28px gap = 200px safety zone */
+  bottom: var(--space-lg);
+  display: flex;
+  gap: var(--space-lg);
+  transform: translateY(20px);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-detail.active .detail-container {
+  transform: translateY(0);
 }
 
 .detail-image-side {
@@ -1127,19 +1148,39 @@ ul {
   }
 
   .project-detail {
-    flex-direction: column;
-    overflow-y: auto;
-    gap: var(--space-md);
+    position: relative;
     width: 100%;
     height: auto;
-    position: relative;
-    top: 0;
-    left: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+    top: auto;
+    left: auto;
     right: auto;
     bottom: auto;
   }
+
+  .project-detail.active {
+    opacity: 1;
+  }
+  
+  .detail-container {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    transform: none;
+    transition: none;
+  }
   
   .detail-image-side {
+    flex: 0 0 auto;
+    width: 100%;
     max-width: 100%;
     height: auto;
     border-right: none;
@@ -1149,6 +1190,8 @@ ul {
   }
   
   .detail-content-side {
+    flex: 0 0 auto;
+    width: 100%;
     max-width: 100%;
     height: auto;
     padding-top: 0;
@@ -1184,6 +1227,7 @@ ul {
 
   .hero-nav__item {
     position: static;
+    width: auto; /* Reset desktop width inside mobile flex/grid containers */
     transform: none !important;
     text-align: center;
     padding: var(--space-xs) 4px;
