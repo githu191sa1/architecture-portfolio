@@ -121,22 +121,22 @@ ul {
 .hero-nav__item {
   position: absolute;
   font-family: var(--font-display);
-  font-size: calc(var(--font-size-small) * 1.5); /* Enlarged by 1.5x */
+  font-size: calc(var(--font-size-small) * 1.15); /* Reduced size (1.15x) for a more compact and elegant look */
   text-transform: uppercase;
   letter-spacing: 2px;
-  font-weight: 600; /* Slightly bolder for high legibility */
+  font-weight: 600;
   background-color: #ffffff; /* Solid white background */
   color: #000000; /* Black text */
-  border-radius: 30px; /* Highly rounded corners (Apple UI style) */
-  padding: var(--space-sm) var(--space-md); /* Pill shape padding */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Soft baseline shadow */
+  border-radius: 20px; /* Highly rounded corners */
+  padding: var(--space-xs) var(--space-sm); /* Compact padding (8px 16px) to reduce box size */
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.04); /* Subtle white glow baseline for dark mode */
   transition: transform var(--transition-normal), box-shadow var(--transition-normal);
   pointer-events: auto;
 }
 
 .hero-nav__item:hover {
-  color: #000000; /* Ensure text remains black on hover */
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45); /* Deep shadow simulating float-up */
+  color: #000000;
+  box-shadow: 0 15px 35px rgba(255, 255, 255, 0.16); /* Multiplied light shadow to make float-up very visible on black bg */
 }
 
 .hero-nav__item--top-left {
@@ -152,13 +152,13 @@ ul {
 .hero-nav__item--mid-left {
   top: 50%;
   left: var(--space-md);
-  transform: translateY(-50%);
+  transform: translateY(-50%) scale(1.0);
 }
 
 .hero-nav__item--mid-right {
   top: 50%;
   right: var(--space-md);
-  transform: translateY(-50%);
+  transform: translateY(-50%) scale(1.0);
 }
 
 .hero-nav__item--bottom-left {
@@ -171,29 +171,29 @@ ul {
   right: var(--space-md);
 }
 
-/* Hover Floating Translation offsets */
+/* Hover Floating Translation & Scale (High visibility float-up effect) */
 .hero-nav__item--top-left:hover {
-  transform: translateY(-6px);
+  transform: translateY(-12px) scale(1.08); /* Float up 12px and enlarge slightly */
 }
 
 .hero-nav__item--top-right:hover {
-  transform: translateY(-6px);
+  transform: translateY(-12px) scale(1.08);
 }
 
 .hero-nav__item--mid-left:hover {
-  transform: translateY(calc(-50% - 6px));
+  transform: translateY(calc(-50% - 12px)) scale(1.08);
 }
 
 .hero-nav__item--mid-right:hover {
-  transform: translateY(calc(-50% - 6px));
+  transform: translateY(calc(-50% - 12px)) scale(1.08);
 }
 
 .hero-nav__item--bottom-left:hover {
-  transform: translateY(-6px);
+  transform: translateY(-12px) scale(1.08);
 }
 
 .hero-nav__item--bottom-right:hover {
-  transform: translateY(-6px);
+  transform: translateY(-12px) scale(1.08);
 }
 
 .hero__content {
