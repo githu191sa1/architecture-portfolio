@@ -656,7 +656,7 @@ ul {
 .detail-gallery-img-wrapper {
   grid-column: span 12;
   width: 100%;
-  max-height: 380px; /* Limit height of plan/render cards */
+  max-height: 494px; /* Extended height downwards by 3cm (114px) */
   aspect-ratio: 4 / 3;
   background-color: var(--color-placeholder);
   border: var(--border-width) solid var(--color-border);
