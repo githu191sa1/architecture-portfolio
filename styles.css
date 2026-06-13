@@ -203,7 +203,7 @@ ul {
   left: 0;
   width: 100%;
   height: 100%;
-  padding-right: calc(var(--space-lg) + 180px); /* Leave space for fixed navigation bar */
+  padding-right: calc(var(--space-lg) + 120px); /* Leave space for fixed navigation bar */
   padding-left: var(--space-lg);
   padding-top: var(--space-xl);
   padding-bottom: var(--space-xl);
