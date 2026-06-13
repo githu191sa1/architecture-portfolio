@@ -480,6 +480,30 @@ function initProjectDetails() {
         p.className = 'detail-overview-text';
         p.textContent = details.overview.text;
         contentDisplay.appendChild(p);
+
+        // 如果 details.overview.images 存在且有圖片，則在文字下方渲染圖片
+        if (details.overview.images && Array.isArray(details.overview.images) && details.overview.images.length > 0) {
+          p.style.marginBottom = 'var(--space-md)';
+          
+          const galleryContainer = document.createElement('div');
+          galleryContainer.className = 'detail-gallery';
+          
+          details.overview.images.forEach(imgSrc => {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'detail-gallery-img-wrapper';
+            
+            const img = document.createElement('img');
+            img.src = imgSrc;
+            img.alt = 'Overview layout diagram';
+            img.className = 'detail-gallery-img';
+            img.loading = 'lazy';
+            
+            imgContainer.appendChild(img);
+            galleryContainer.appendChild(imgContainer);
+          });
+          
+          contentDisplay.appendChild(galleryContainer);
+        }
       } else {
         // plans or renders: display images
         const galleryContainer = document.createElement('div');

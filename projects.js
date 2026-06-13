@@ -12,7 +12,10 @@ const projects = [
     tools: ["Archicad", "ComfyUI", "Twinmotion"],
     details: {
       overview: {
-        text: "本案坐落於密林之中，設計核心在於重塑人、建築與自然的界線。藉由大面積的水平開窗與懸挑結構，將森林景觀引入室內，並利用當地回收木材與清水混凝土作為主體，展現低碳永續與極簡美學的和諧共存。"
+        text: "本案坐落於密林之中，設計核心在於重塑人、建築與自然的界線。藉由大面積的水平開窗與懸挑結構，將森林景觀引入室內，並利用當地回收木材與清水混凝土作為主體，展現低碳永續與極簡美學的和諧共存。",
+        images: [
+          `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%23181818" stroke="%232e2e2e" stroke-width="1"/><rect x="5" y="5" width="90" height="65" fill="none" stroke="%233a3a3a" stroke-width="0.5" stroke-dasharray="2,2"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">DESIGN BOARD / DIAGRAM</text></svg>`
+        ]
       },
       plans: [
         `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%23121212" stroke="%232e2e2e" stroke-width="1"/><line x1="20" y1="15" x2="80" y2="15" stroke="%233a3a3a" stroke-width="0.5"/><line x1="20" y1="35" x2="80" y2="35" stroke="%233a3a3a" stroke-width="0.5"/><line x1="20" y1="55" x2="80" y2="55" stroke="%233a3a3a" stroke-width="0.5"/><line x1="35" y1="15" x2="35" y2="60" stroke="%233a3a3a" stroke-width="0.5"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">FLOOR PLAN DRAWING</text></svg>`
@@ -35,7 +38,10 @@ const projects = [
     tools: ["Rhino", "Grasshopper", "V-Ray"],
     details: {
       overview: {
-        text: "此文化展館以「浮游」為概念，利用輕量化鋼構與半透明網格薄膜，創造出彷彿漂浮於水面之上的視覺張力。內部空間採取無柱大跨度設計，提供靈活的展覽動線，並利用自然對流風系統達到節能效果。"
+        text: "此文化展館以「浮游」為概念，利用輕量化鋼構與半透明網格薄膜，創造出彷彿漂浮於水面之上的視覺張力。內部空間採取無柱大跨度設計，提供靈活的展覽動線，並利用自然對流風系統達到節能效果。",
+        images: [
+          `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%23181818" stroke="%232e2e2e" stroke-width="1"/><rect x="5" y="5" width="90" height="65" fill="none" stroke="%233a3a3a" stroke-width="0.5" stroke-dasharray="2,2"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">DESIGN BOARD / DIAGRAM</text></svg>`
+        ]
       },
       plans: [
         `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%23121212" stroke="%232e2e2e" stroke-width="1"/><line x1="20" y1="15" x2="80" y2="15" stroke="%233a3a3a" stroke-width="0.5"/><line x1="20" y1="35" x2="80" y2="35" stroke="%233a3a3a" stroke-width="0.5"/><line x1="20" y1="55" x2="80" y2="55" stroke="%233a3a3a" stroke-width="0.5"/><line x1="35" y1="15" x2="35" y2="60" stroke="%233a3a3a" stroke-width="0.5"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">FLOOR PLAN DRAWING</text></svg>`
@@ -58,7 +64,10 @@ const projects = [
     tools: ["Revit", "Enscape", "Photoshop"],
     details: {
       overview: {
-        text: "位於山谷低窪處的公共閱覽與冥想空間。建築依循山勢起伏，將半個量體嵌入土丘中以達到極佳的保溫與隔音效果。頂部天窗引入垂直漫射光，為室內營造出靜謐、神聖且適合閱讀與沉思的精神場所。"
+        text: "位於山谷低窪處的公共閱覽與冥想空間。建築依循山勢起伏，將半個量體嵌入土丘中以達到極佳的保溫與隔音效果。頂部天窗引入垂直漫射光，為室內營造出靜謐、神盛且適合閱讀與沉思的精神場所。",
+        images: [
+          `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%23181818" stroke="%232e2e2e" stroke-width="1"/><rect x="5" y="5" width="90" height="65" fill="none" stroke="%233a3a3a" stroke-width="0.5" stroke-dasharray="2,2"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">DESIGN BOARD / DIAGRAM</text></svg>`
+        ]
       },
       plans: [
         `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%23121212" stroke="%232e2e2e" stroke-width="1"/><line x1="20" y1="15" x2="80" y2="15" stroke="%233a3a3a" stroke-width="0.5"/><line x1="20" y1="35" x2="80" y2="35" stroke="%233a3a3a" stroke-width="0.5"/><line x1="20" y1="55" x2="80" y2="55" stroke="%233a3a3a" stroke-width="0.5"/><line x1="35" y1="15" x2="35" y2="60" stroke="%233a3a3a" stroke-width="0.5"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">FLOOR PLAN DRAWING</text></svg>`
