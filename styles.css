@@ -18,7 +18,7 @@
   --space-xl: 128px;
 
   /* 配色(極簡黑白灰 - 深色模式) */
-  --color-bg: #0a0a0a;          /* 深黑背景 */
+  --color-bg: #000000;          /* 純黑背景 */
   --color-text: #f5f5f5;        /* 淺色文字 */
   --color-text-secondary: #a0a0a0;  /* 次要文字,中灰 */
   --color-accent: #ffffff;      /* 強調色改為白 */
@@ -435,6 +435,7 @@ ul {
   left: 0;
   transform-origin: bottom left;
   animation: slideInLeft 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  filter: invert(1);
 }
 
 .landing-side-img-right {
