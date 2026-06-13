@@ -491,7 +491,7 @@ ul {
 
 /* Active State on Load */
 .landing-side-img-left.active {
-  transform: translateX(-30%) scale(1); /* Slide in 70% of the way (30% remains offscreen) */
+  transform: translateX(-20%) scale(1); /* Slide in 80% of the way (20% remains offscreen) */
   opacity: 0.95;
 }
 
