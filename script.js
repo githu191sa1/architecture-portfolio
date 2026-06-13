@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initLandingSelector();
   initNavigation();
   initAudio();
+  initProjectDetails();
 
   // Trigger side images slide-in animation
   setTimeout(() => {
@@ -384,3 +385,139 @@ function fadeOutAudio(audio, duration = 1500) {
     }
   }, intervalTime);
 }
+
+/**
+ * Initializes the Project Detail View functionality (opening/closing and category sub-nav)
+ */
+function initProjectDetails() {
+  const container = document.getElementById('projects-container');
+  const detailView = document.getElementById('project-detail');
+  const gridView = document.getElementById('projects-grid-view');
+  const backBtn = document.getElementById('project-detail-back');
+  const subnavBtns = document.querySelectorAll('.detail-subnav button');
+  const contentDisplay = document.getElementById('detail-content-display');
+
+  if (!container || !detailView || !gridView || !backBtn) return;
+
+  let currentProject = null;
+
+  // 1. Open project detail
+  container.addEventListener('click', (e) => {
+    const card = e.target.closest('.project-card');
+    if (!card) return;
+
+    const projId = card.getAttribute('data-id');
+    currentProject = projects.find(p => p.id === projId);
+    if (!currentProject) return;
+
+    // Set detail cover image and title
+    const coverImage = document.getElementById('detail-cover-image');
+    const projectTitle = document.getElementById('detail-project-title');
+    if (coverImage) {
+      coverImage.src = currentProject.coverImage;
+      coverImage.alt = currentProject.title;
+      // Force instant scale down first, then offset to trigger smooth animate zoom
+      coverImage.classList.remove('zoomed-in');
+      coverImage.offsetHeight; // force reflow
+      coverImage.classList.add('zoomed-in');
+    }
+    if (projectTitle) {
+      projectTitle.textContent = currentProject.title;
+    }
+
+    // Reset subnav buttons active state
+    subnavBtns.forEach(btn => {
+      if (btn.getAttribute('data-category') === 'overview') {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+
+    // Render default overview text
+    renderCategory('overview');
+
+    // Fade out grid and fade in detail view
+    gridView.classList.add('fade-out');
+    
+    // Wait for grid fade out to complete before showing detail side content animation
+    setTimeout(() => {
+      detailView.classList.remove('hidden');
+      detailView.offsetHeight; // force reflow
+      detailView.classList.add('active');
+    }, 200);
+  });
+
+  // 2. Click category sub-navigation
+  subnavBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      subnavBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const category = btn.getAttribute('data-category');
+      renderCategory(category);
+    });
+  });
+
+  // 3. Render content category
+  function renderCategory(category) {
+    if (!currentProject || !contentDisplay) return;
+
+    // Fade out old content
+    contentDisplay.style.opacity = '0';
+
+    setTimeout(() => {
+      contentDisplay.innerHTML = '';
+      
+      const details = currentProject.details;
+      if (!details || !details[category]) {
+        contentDisplay.innerHTML = '<p>無可用資料。</p>';
+        contentDisplay.style.opacity = '1';
+        return;
+      }
+
+      if (category === 'overview') {
+        const p = document.createElement('p');
+        p.className = 'detail-overview-text';
+        p.textContent = details.overview.text;
+        contentDisplay.appendChild(p);
+      } else {
+        // plans or renders: display images
+        const galleryContainer = document.createElement('div');
+        galleryContainer.className = 'detail-gallery';
+        
+        details[category].forEach(imgSrc => {
+          const imgContainer = document.createElement('div');
+          imgContainer.className = 'detail-gallery-img-wrapper';
+          
+          const img = document.createElement('img');
+          img.src = imgSrc;
+          img.alt = category;
+          img.className = 'detail-gallery-img';
+          img.loading = 'lazy';
+          
+          imgContainer.appendChild(img);
+          galleryContainer.appendChild(imgContainer);
+        });
+        
+        contentDisplay.appendChild(galleryContainer);
+      }
+
+      // Fade in new content
+      contentDisplay.style.opacity = '1';
+    }, 150);
+  }
+
+  // 4. Back button click
+  backBtn.addEventListener('click', () => {
+    detailView.classList.remove('active');
+    detailView.classList.add('hidden');
+    gridView.classList.remove('fade-out');
+
+    // Reset zoom state of cover image
+    const coverImage = document.getElementById('detail-cover-image');
+    if (coverImage) {
+      coverImage.classList.remove('zoomed-in');
+    }
+  });
+}
+

@@ -449,6 +449,190 @@ ul {
   line-height: 1.2;
 }
 
+/* Projects Grid View Fade Out */
+.projects-grid-view {
+  opacity: 1;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.projects-grid-view.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Project Detail View Layout */
+.project-detail {
+  position: absolute;
+  top: var(--space-xl);
+  left: var(--space-lg);
+  width: calc(100% - var(--space-lg) * 2);
+  height: calc(100% - var(--space-xl) * 2);
+  display: flex;
+  gap: var(--space-lg);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.project-detail.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.detail-image-side {
+  flex: 1;
+  max-width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-right: var(--border-width) solid var(--color-border);
+  padding-right: var(--space-md);
+}
+
+#detail-cover-image {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border: var(--border-width) solid var(--color-border);
+  transform: scale(0.95);
+  opacity: 0;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
+}
+
+#detail-cover-image.zoomed-in {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.detail-content-side {
+  flex: 1;
+  max-width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding-top: var(--space-sm);
+  overflow-y: auto;
+}
+
+/* Back Button */
+.detail-back-btn {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  font-family: var(--font-display);
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  letter-spacing: 1px;
+  cursor: pointer;
+  padding: 0;
+  transition: color var(--transition-normal), transform var(--transition-normal);
+}
+
+.detail-back-btn:hover {
+  color: var(--color-text);
+  transform: translateX(-4px);
+}
+
+/* Title */
+.detail-project-title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-h2);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+/* Category Sub-navigation */
+.detail-subnav {
+  display: flex;
+  gap: var(--space-sm);
+  border-bottom: var(--border-width) solid var(--color-border);
+  padding-bottom: var(--space-xs);
+}
+
+.detail-subnav button {
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  font-family: var(--font-display);
+  font-size: var(--font-size-body);
+  font-weight: 500;
+  cursor: pointer;
+  padding: var(--space-xs) var(--space-sm);
+  position: relative;
+  transition: color var(--transition-normal);
+}
+
+.detail-subnav button:hover {
+  color: var(--color-text);
+}
+
+.detail-subnav button.active {
+  color: var(--color-accent);
+}
+
+.detail-subnav button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -9px; /* Align precisely with the border-bottom of subnav */
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-accent);
+}
+
+/* Display Area */
+#detail-content-display {
+  flex: 1;
+  transition: opacity 0.15s ease-in-out;
+  opacity: 1;
+  padding-bottom: var(--space-md);
+}
+
+.detail-overview-text {
+  font-size: var(--font-size-body);
+  color: var(--color-text);
+  line-height: 1.8;
+  font-weight: 300;
+  white-space: pre-line; /* Keep line breaks if any */
+}
+
+/* Plan/Render Galleries */
+.detail-gallery {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-sm);
+}
+
+.detail-gallery-img-wrapper {
+  grid-column: span 12;
+  width: 100%;
+  aspect-ratio: 4 / 3; /* Blueprint plans and renders look fantastic in landscape ratio */
+  background-color: var(--color-placeholder);
+  border: var(--border-width) solid var(--color-border);
+  overflow: hidden;
+  position: relative;
+}
+
+.detail-gallery-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.detail-gallery-img-wrapper:hover .detail-gallery-img {
+  transform: scale(1.03); /* Subtle architectural inspection zoom */
+}
+
 /* Sketches Section */
 .sketches-grid {
   display: grid;
@@ -918,6 +1102,33 @@ ul {
     border-left: none;
     border-top: var(--border-width) solid var(--color-border);
     padding-top: var(--space-md);
+  }
+
+  .project-detail {
+    flex-direction: column;
+    overflow-y: auto;
+    gap: var(--space-md);
+    width: 100%;
+    height: auto;
+    position: relative;
+    top: 0;
+    left: 0;
+  }
+  
+  .detail-image-side {
+    max-width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: var(--border-width) solid var(--color-border);
+    padding-right: 0;
+    padding-bottom: var(--space-md);
+  }
+  
+  .detail-content-side {
+    max-width: 100%;
+    height: auto;
+    padding-top: 0;
+    overflow-y: visible;
   }
 }
 

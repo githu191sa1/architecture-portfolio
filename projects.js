@@ -8,14 +8,19 @@ const projects = [
     type: "Residential",
     category: "Architecture",
     coverImage: "./assets/images/projects/proj-001/cover.jpg",
-    gallery: [
-      "./assets/images/projects/proj-001/01.jpg",
-      "./assets/images/projects/proj-001/02.jpg",
-      "./assets/images/projects/proj-001/03.jpg"
-    ],
-    description: "本案坐落於密林之中，設計核心在於重塑人、建築與自然的界線。藉由大面積的水平開窗與懸挑結構，將森林景觀引入室內，並利用當地回收木材與清水混凝土作為主體，展現低碳永續與極簡美學的和諧共存。",
     tags: ["量體分析", "日照模擬", "永續材料"],
-    tools: ["Archicad", "ComfyUI", "Twinmotion"]
+    tools: ["Archicad", "ComfyUI", "Twinmotion"],
+    details: {
+      overview: {
+        text: "本案坐落於密林之中，設計核心在於重塑人、建築與自然的界線。藉由大面積的水平開窗與懸挑結構，將森林景觀引入室內，並利用當地回收木材與清水混凝土作為主體，展現低碳永續與極簡美學的和諧共存。"
+      },
+      plans: [
+        "./assets/images/projects/proj-001/plan.png"
+      ],
+      renders: [
+        "./assets/images/projects/proj-001/render.png"
+      ]
+    }
   },
   {
     id: "proj-002",
@@ -26,13 +31,19 @@ const projects = [
     type: "Culture",
     category: "Architecture",
     coverImage: "./assets/images/projects/proj-002/cover.jpg",
-    gallery: [
-      "./assets/images/projects/proj-002/01.jpg",
-      "./assets/images/projects/proj-002/02.jpg"
-    ],
-    description: "此文化展館以「浮游」為概念，利用輕量化鋼構與半透明網格薄膜，創造出彷彿漂浮於水面之上的視覺張力。內部空間採取無柱大跨度設計，提供靈活的展覽動線，並利用自然對流風系統達到節能效果。",
     tags: ["結構優化", "計算設計", "風場模擬"],
-    tools: ["Rhino", "Grasshopper", "V-Ray"]
+    tools: ["Rhino", "Grasshopper", "V-Ray"],
+    details: {
+      overview: {
+        text: "此文化展館以「浮游」為概念，利用輕量化鋼構與半透明網格薄膜，創造出彷彿漂浮於水面之上的視覺張力。內部空間採取無柱大跨度設計，提供靈活的展覽動線，並利用自然對流風系統達到節能效果。"
+      },
+      plans: [
+        "./assets/images/projects/proj-002/plan.png"
+      ],
+      renders: [
+        "./assets/images/projects/proj-002/render.png"
+      ]
+    }
   },
   {
     id: "proj-003",
@@ -43,13 +54,19 @@ const projects = [
     type: "Education",
     category: "Design",
     coverImage: "./assets/images/projects/proj-003/cover.jpg",
-    gallery: [
-      "./assets/images/projects/proj-003/01.jpg",
-      "./assets/images/projects/proj-003/02.jpg"
-    ],
-    description: "位於山谷低窪處的公共閱覽與冥想空間。建築依循山勢起伏，將半個量體嵌入土丘中以達到極佳的保溫與隔音效果。頂部天窗引入垂直漫射光，為室內營造出靜謐、神聖且適合閱讀與沉思的精神場所。",
     tags: ["地形適應", "自然採光", "聲學模擬"],
-    tools: ["Revit", "Enscape", "Photoshop"]
+    tools: ["Revit", "Enscape", "Photoshop"],
+    details: {
+      overview: {
+        text: "位於山谷低窪處的公共閱覽與冥想空間。建築依循山勢起伏，將半個量體嵌入土丘中以達到極佳的保溫與隔音效果。頂部天窗引入垂直漫射光，為室內營造出靜謐、神盛且適合閱讀與沉思的精神場所。"
+      },
+      plans: [
+        "./assets/images/projects/proj-003/plan.png"
+      ],
+      renders: [
+        "./assets/images/projects/proj-003/render.png"
+      ]
+    }
   }
 ];
 
