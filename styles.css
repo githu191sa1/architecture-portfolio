@@ -561,7 +561,7 @@ ul {
 
 .detail-back-btn {
   position: absolute;
-  top: 76px; /* Shifted down by 2cm (76px) as requested */
+  top: 57px; /* Shifted down by 1.5cm (57px) as requested */
   left: 0;
   background: none;
   border: none;
