@@ -420,7 +420,7 @@ ul {
 
 .landing-card {
   width: 280px;
-  height: 380px;
+  height: 570px; /* Made 1.5x taller from 380px */
   border: var(--border-width) solid var(--color-border);
   background-color: rgba(26, 26, 26, 0.4); /* Transparent black capsule background */
   border-radius: 20px;
@@ -439,6 +439,32 @@ ul {
   overflow: hidden;
 }
 
+/* Background image inside the card */
+.landing-card__bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+  opacity: 0.25; /* Highly transparent to blend with particles and keep text clear */
+  transition: opacity 0.5s ease;
+}
+
+.landing-card__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.landing-card__content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
 .landing-card::before {
   content: '';
   position: absolute;
@@ -450,13 +476,22 @@ ul {
   opacity: 0;
   transition: opacity 0.5s ease;
   pointer-events: none;
+  z-index: 1;
 }
 
 .landing-card:hover {
   transform: translateY(-8px) scale(1.03);
   border-color: var(--color-accent);
-  background-color: rgba(26, 26, 26, 0.7);
+  background-color: rgba(26, 26, 26, 0.65);
   box-shadow: 0 12px 30px rgba(255, 255, 255, 0.08);
+}
+
+.landing-card:hover .landing-card__bg {
+  opacity: 0.55; /* Image lights up slightly on hover */
+}
+
+.landing-card:hover .landing-card__bg img {
+  transform: scale(1.08); /* Slowly zoom in the background image on hover */
 }
 
 .landing-card:hover::before {
