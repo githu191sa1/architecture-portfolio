@@ -418,16 +418,22 @@ ul {
   flex-direction: column;
   gap: var(--space-sm);
   cursor: pointer;
-  transition: transform 0.4s ease-in, box-shadow 0.4s ease-in;
+  padding: var(--space-sm); /* Add 16px padding to keep text and images away from border edges */
+  background-color: transparent;
+  border: 1px solid transparent;
   border-radius: 12px;
+  box-sizing: border-box;
+  transition: transform 0.4s ease-in, box-shadow 0.4s ease-in, background-color 0.4s ease-in, border-color 0.4s ease-in;
 }
 
 .project-card:hover {
   transform: scale(1.03);
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.3),
-              0 0 20px rgba(255,255,255,0.1),
-              0 0 40px rgba(255,255,255,0.05);
-  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+  background-color: rgba(26, 26, 26, 0.45); /* Translucent dark glassmorphism background */
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3),
+              0 0 20px rgba(255, 255, 255, 0.1),
+              0 0 40px rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.3s ease-out, border-color 0.3s ease-out;
 }
 
 

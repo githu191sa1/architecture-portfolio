@@ -64,7 +64,7 @@ function renderProjects() {
     card.innerHTML = `
       <div class="media-placeholder">
         <img 
-          src="${project.coverImage}" 
+          src="${project.coverImage.replace(/"/g, "'")}" 
           alt="${project.title}" 
           class="media-placeholder__img" 
           onload="this.style.opacity='1';"
