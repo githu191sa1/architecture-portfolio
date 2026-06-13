@@ -108,6 +108,11 @@ function initLandingSelector() {
     card.addEventListener('click', () => {
       const target = card.getAttribute('data-target');
 
+      // Fade out side images
+      document.querySelectorAll('.landing-side-img').forEach(img => {
+        img.classList.add('fade-out');
+      });
+
       if (target === 'portfolio') {
         // 1. Fade out other cards
         cards.forEach(c => {
@@ -142,6 +147,10 @@ function initLandingSelector() {
   if (backToLandingBtn && aiPlaceholder) {
     backToLandingBtn.addEventListener('click', () => {
       aiPlaceholder.classList.add('hidden');
+      // Reset side images fade-out state
+      document.querySelectorAll('.landing-side-img').forEach(img => {
+        img.classList.remove('fade-out');
+      });
       landingSelector.classList.remove('hidden');
     });
   }

@@ -418,6 +418,68 @@ ul {
   pointer-events: none;
 }
 
+/* Side images for landing screen */
+.landing-side-img {
+  position: absolute;
+  bottom: 0;
+  height: 90vh; /* Taller for commanding presence */
+  max-width: 32vw;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 1; /* Under the cards, but inside landing selector */
+  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.2s ease;
+  opacity: 0; /* Animated to 0.75 on load */
+}
+
+.landing-side-img-left {
+  left: 0;
+  transform-origin: bottom left;
+  animation: slideInLeft 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.landing-side-img-right {
+  right: 0;
+  transform-origin: bottom right;
+  animation: slideInRight 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Animations on load */
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(-100%) scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0) scale(1);
+    opacity: 0.75;
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    transform: translateX(100%) scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0) scale(1);
+    opacity: 0.75;
+  }
+}
+
+/* Fade out when card is selected */
+.landing-side-img.fade-out {
+  opacity: 0 !important;
+  transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.8s ease-out;
+}
+
+.landing-side-img-left.fade-out {
+  transform: translateX(-60px) scale(0.95) !important;
+}
+
+.landing-side-img-right.fade-out {
+  transform: translateX(60px) scale(0.95) !important;
+}
+
 .landing-card {
   width: 280px;
   height: 570px; /* Made 1.5x taller from 380px */
@@ -704,6 +766,10 @@ ul {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-sm);
+  }
+
+  .landing-side-img {
+    display: none !important;
   }
 
   .landing-selector {
