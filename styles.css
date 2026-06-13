@@ -124,15 +124,19 @@ ul {
   font-size: calc(var(--font-size-small) * 1.5); /* Enlarged by 1.5x */
   text-transform: uppercase;
   letter-spacing: 2px;
-  font-weight: 500;
-  color: var(--color-text-secondary);
-  transition: var(--transition-normal);
-  padding: var(--space-sm);
+  font-weight: 600; /* Slightly bolder for high legibility */
+  background-color: #ffffff; /* Solid white background */
+  color: #000000; /* Black text */
+  border-radius: 30px; /* Highly rounded corners (Apple UI style) */
+  padding: var(--space-sm) var(--space-md); /* Pill shape padding */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Soft baseline shadow */
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
   pointer-events: auto;
 }
 
 .hero-nav__item:hover {
-  color: var(--color-accent);
+  color: #000000; /* Ensure text remains black on hover */
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45); /* Deep shadow simulating float-up */
 }
 
 .hero-nav__item--top-left {
@@ -165,6 +169,31 @@ ul {
 .hero-nav__item--bottom-right {
   bottom: var(--space-md);
   right: var(--space-md);
+}
+
+/* Hover Floating Translation offsets */
+.hero-nav__item--top-left:hover {
+  transform: translateY(-6px);
+}
+
+.hero-nav__item--top-right:hover {
+  transform: translateY(-6px);
+}
+
+.hero-nav__item--mid-left:hover {
+  transform: translateY(calc(-50% - 6px));
+}
+
+.hero-nav__item--mid-right:hover {
+  transform: translateY(calc(-50% - 6px));
+}
+
+.hero-nav__item--bottom-left:hover {
+  transform: translateY(-6px);
+}
+
+.hero-nav__item--bottom-right:hover {
+  transform: translateY(-6px);
 }
 
 .hero__content {
