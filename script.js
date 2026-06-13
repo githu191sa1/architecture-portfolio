@@ -285,7 +285,20 @@ function scheduleLandingLoop() {
       // Re-verify that we are still on the landing page and not muted
       const currentIsOnLanding = landingSelector && !landingSelector.classList.contains('hidden');
       if (currentIsOnLanding && !openingAudio.muted) {
-        openingAudio.play().catch(err => console.log("Audio loop blocked", err));
+        openingAudio.play().catch(err => {
+          console.log("Audio loop blocked. Registering interaction fallback.", err);
+          
+          // Fallback: play on first user interaction if loop was blocked
+          const playOnInteraction = () => {
+            if (openingAudio.paused) {
+              openingAudio.play().catch(e => console.log("Play on interaction failed", e));
+            }
+            triggers.forEach(t => document.removeEventListener(t, playOnInteraction));
+          };
+
+          const triggers = ['click', 'touchstart', 'pointerdown', 'keydown'];
+          triggers.forEach(t => document.addEventListener(t, playOnInteraction, { once: true }));
+        });
       }
     }, 60000); // 60 seconds silence gap
   }
@@ -307,26 +320,45 @@ function initAudio() {
     scheduleLandingLoop();
   });
 
-  // Try to play automatically (unmuted) on load
-  openingAudio.play().catch(err => {
-    console.log("Autoplay blocked, waiting for user interaction.");
-    
-    // Set up triggers for first user interaction (click, touch, pointer)
-    const playOnInteraction = () => {
-      if (openingAudio.paused) {
-        openingAudio.play().catch(e => console.log("Play on interaction failed", e));
-      }
-      // Remove all listeners once played
-      triggers.forEach(trigger => {
-        document.removeEventListener(trigger, playOnInteraction);
-      });
-    };
+  const tryPlay = () => {
+    openingAudio.play().then(() => {
+      console.log("Audio started successfully.");
+    }).catch(err => {
+      console.log("Autoplay blocked, waiting for user interaction.", err);
+      
+      // Set up triggers for first user interaction (click, touch, pointer, key)
+      const playOnInteraction = () => {
+        if (openingAudio.paused) {
+          openingAudio.play().then(() => {
+            console.log("Audio played on user gesture.");
+          }).catch(e => console.log("Play on interaction failed", e));
+        }
+        // Remove all listeners once played
+        triggers.forEach(trigger => {
+          document.removeEventListener(trigger, playOnInteraction);
+        });
+      };
 
-    const triggers = ['click', 'touchstart', 'pointerdown'];
-    triggers.forEach(trigger => {
-      document.addEventListener(trigger, playOnInteraction);
+      const triggers = ['click', 'touchstart', 'pointerdown', 'keydown'];
+      triggers.forEach(trigger => {
+        document.addEventListener(trigger, playOnInteraction, { once: true });
+      });
     });
-  });
+  };
+
+  // If the audio is already playing (via HTML native autoplay), we are done
+  const isPlaying = openingAudio.currentTime > 0 && !openingAudio.paused && !openingAudio.ended && openingAudio.readyState > 2;
+  if (isPlaying) {
+    console.log("Audio is already playing natively via HTML autoplay.");
+    return;
+  }
+
+  // If the audio is ready to play, try to play it. Otherwise, wait for 'canplay' event.
+  if (openingAudio.readyState >= 2) {
+    tryPlay();
+  } else {
+    openingAudio.addEventListener('canplay', tryPlay, { once: true });
+  }
 }
 
 /**
