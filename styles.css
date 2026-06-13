@@ -423,7 +423,7 @@ ul {
   position: absolute;
   bottom: 0;
   height: 100vh; /* Fill entire height of viewport */
-  object-fit: cover; /* Fill the area without distortion */
+  object-fit: contain; /* Contain the image to prevent cropping */
   pointer-events: none;
   z-index: 1; /* Under the cards, but inside landing selector */
   transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.5s ease;
@@ -436,7 +436,7 @@ ul {
   transform-origin: bottom left;
   animation: slideInLeft 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   filter: invert(1) brightness(1.5) contrast(1.15); /* Boost brightness & contrast */
-  object-position: left center;
+  object-position: left bottom;
 }
 
 .landing-side-img-right {
@@ -444,7 +444,7 @@ ul {
   width: 25vw; /* Scaled down to ~70% of 35vw */
   transform-origin: bottom right;
   animation: slideInRight 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  object-position: right center;
+  object-position: right bottom;
 }
 
 /* Animations on load */
