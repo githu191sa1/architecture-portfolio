@@ -110,10 +110,15 @@ function initLandingSelector() {
   if (!landingSelector || !mainContent) return;
 
   cards.forEach(card => {
-    // Ignore disabled cards
-    if (card.classList.contains('disabled')) return;
-
     card.addEventListener('click', () => {
+      // Play click sound immediately on any card click
+      const clickAudio = new Audio('./assets/audio/click.mp3');
+      clickAudio.volume = 1.0;
+      clickAudio.play().catch(err => console.log("Click sound blocked", err));
+
+      // Ignore transition logic for disabled cards
+      if (card.classList.contains('disabled')) return;
+
       const target = card.getAttribute('data-target');
 
       // Fade out side images
@@ -186,6 +191,7 @@ function initLandingSelector() {
       if (audioToggle) {
         audioToggle.classList.remove('hidden');
         if (!audioToggle.classList.contains('muted') && openingAudio) {
+          openingAudio.muted = false; // Ensure unmuted
           openingAudio.volume = 1.0;
           openingAudio.play().catch(err => console.log("Audio play blocked", err));
         }
@@ -209,14 +215,17 @@ function initAudio() {
   openingAudio = new Audio('./assets/audio/opening.mp3');
   openingAudio.loop = false; // Disable default looping to allow silence gap
   openingAudio.volume = 1.0;
+  openingAudio.muted = true; // Default to muted to allow autoplay immediately on load
 
-  let isMuted = false;
+  // Show muted state visually by default
+  audioToggle.classList.add('muted');
 
   // Listen for audio ended to trigger a 60-second silence gap before playing again
   openingAudio.addEventListener('ended', () => {
     if (loopTimeout) clearTimeout(loopTimeout);
     loopTimeout = setTimeout(() => {
-      if (!isMuted && !audioToggle.classList.contains('muted')) {
+      // Respect current mute state before looping
+      if (!openingAudio.muted) {
         openingAudio.play().catch(err => console.log("Audio loop blocked", err));
       }
     }, 60000); // 60 seconds silence gap
@@ -225,44 +234,24 @@ function initAudio() {
   // Toggle button click handler
   audioToggle.addEventListener('click', (e) => {
     e.stopPropagation(); // Avoid triggering document click handler
-    isMuted = !isMuted;
-    if (isMuted) {
+    
+    // Toggle the HTML5 Audio element muted property directly
+    openingAudio.muted = !openingAudio.muted;
+    
+    if (openingAudio.muted) {
       if (loopTimeout) clearTimeout(loopTimeout);
-      openingAudio.pause();
       audioToggle.classList.add('muted');
     } else {
-      openingAudio.play().catch(err => console.log("Audio play blocked", err));
       audioToggle.classList.remove('muted');
+      // If paused (e.g. ended or blocked), play it
+      if (openingAudio.paused) {
+        openingAudio.play().catch(err => console.log("Audio play blocked", err));
+      }
     }
   });
 
-  // Try to play automatically
-  const startPlay = () => {
-    if (isMuted || !openingAudio.paused) return;
-
-    openingAudio.play().then(() => {
-      audioToggle.classList.remove('muted');
-      isMuted = false;
-    }).catch(err => {
-      // Autoplay blocked (expected) -> visual state is muted, wait for user click to unmute
-      audioToggle.classList.add('muted');
-      isMuted = true;
-
-      // Unmute on first click anywhere on the page
-      const firstClickUnmute = () => {
-        if (isMuted) {
-          openingAudio.play().then(() => {
-            audioToggle.classList.remove('muted');
-            isMuted = false;
-          }).catch(e => console.log("Unmute failed", e));
-        }
-        document.removeEventListener('click', firstClickUnmute);
-      };
-      document.addEventListener('click', firstClickUnmute);
-    });
-  };
-
-  startPlay();
+  // Play immediately (silently)
+  openingAudio.play().catch(err => console.log("Muted autoplay blocked", err));
 }
 
 /**
