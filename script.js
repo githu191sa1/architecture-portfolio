@@ -197,7 +197,6 @@ function initLandingSelector() {
 }
 
 let openingAudio;
-let loopTimeout;
 
 /**
  * Initializes opening background audio and mute/unmute toggle.
@@ -207,27 +206,16 @@ function initAudio() {
   if (!audioToggle) return;
 
   openingAudio = new Audio('./assets/audio/opening.mp3');
-  openingAudio.loop = false; // Disable default looping to allow silence gap
+  openingAudio.loop = true; // Loop continuously
   openingAudio.volume = 1.0;
 
   let isMuted = false;
-
-  // Listen for audio ended to trigger a 60-second silence gap before playing again
-  openingAudio.addEventListener('ended', () => {
-    if (loopTimeout) clearTimeout(loopTimeout);
-    loopTimeout = setTimeout(() => {
-      if (!isMuted && !audioToggle.classList.contains('muted')) {
-        openingAudio.play().catch(err => console.log("Audio loop blocked", err));
-      }
-    }, 60000); // 60 seconds silence gap
-  });
 
   // Toggle button click handler
   audioToggle.addEventListener('click', (e) => {
     e.stopPropagation(); // Avoid triggering document click handler
     isMuted = !isMuted;
     if (isMuted) {
-      if (loopTimeout) clearTimeout(loopTimeout);
       openingAudio.pause();
       audioToggle.classList.add('muted');
     } else {
@@ -262,18 +250,7 @@ function initAudio() {
     });
   };
 
-  // Play after 1 second delay
-  let playDelayTimeout = setTimeout(() => {
-    startPlay();
-    document.removeEventListener('click', earlyInteractionPlay);
-  }, 1000);
-
-  // Allow early play on first click before 1s
-  const earlyInteractionPlay = () => {
-    clearTimeout(playDelayTimeout);
-    startPlay();
-  };
-  document.addEventListener('click', earlyInteractionPlay, { once: true });
+  startPlay();
 }
 
 /**
