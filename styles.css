@@ -519,13 +519,15 @@ ul {
   flex: 0 0 45%;
   width: 45%;
   max-width: 45%;
-  height: 100%;
+  height: calc(100% + 38px); /* Extended height to compensate for negative margin */
+  margin-top: -38px; /* Move project cover up by 1cm (38px) */
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  overflow: visible; /* Prevent clipping of back button and shifted image */
   border-right: var(--border-width) solid var(--color-border);
   padding-right: var(--space-md);
+  position: relative;
 }
 
 #detail-cover-image {
@@ -557,23 +559,25 @@ ul {
   overflow-y: auto;
 }
 
-/* Back Button */
 .detail-back-btn {
-  align-self: flex-start;
+  position: absolute;
+  top: 0; /* Align to the top of the shifted cover container */
+  left: 0;
   background: none;
   border: none;
-  color: var(--color-text-secondary);
+  color: #ffffff; /* White text as requested */
   font-family: var(--font-display);
-  font-size: var(--font-size-small);
+  font-size: calc(var(--font-size-small) * 1.5); /* 1.5x larger as requested */
   font-weight: 500;
   letter-spacing: 1px;
   cursor: pointer;
   padding: 0;
   transition: color var(--transition-normal), transform var(--transition-normal);
+  z-index: 10;
 }
 
 .detail-back-btn:hover {
-  color: var(--color-text);
+  color: #ffffff;
   transform: translateX(-4px);
 }
 
@@ -1183,10 +1187,18 @@ ul {
     width: 100%;
     max-width: 100%;
     height: auto;
+    margin-top: 0; /* Reset desktop negative margin */
     border-right: none;
     border-bottom: var(--border-width) solid var(--color-border);
     padding-right: 0;
     padding-bottom: var(--space-md);
+  }
+  
+  .detail-back-btn {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-bottom: var(--space-sm);
   }
   
   .detail-content-side {
