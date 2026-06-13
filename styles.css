@@ -393,6 +393,205 @@ ul {
   color: var(--color-accent);
 }
 
+/* ==================== Landing Selector ==================== */
+.landing-selector {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.landing-selector.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.landing-card {
+  width: 280px;
+  height: 380px;
+  border: var(--border-width) solid var(--color-border);
+  background-color: rgba(26, 26, 26, 0.4); /* Transparent black capsule background */
+  border-radius: 20px;
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  cursor: pointer;
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), 
+              border-color 0.3s ease, 
+              background-color 0.3s ease, 
+              opacity 0.4s ease, 
+              box-shadow 0.5s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.landing-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.landing-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  border-color: var(--color-accent);
+  background-color: rgba(26, 26, 26, 0.7);
+  box-shadow: 0 12px 30px rgba(255, 255, 255, 0.08);
+}
+
+.landing-card:hover::before {
+  opacity: 1;
+}
+
+.landing-card h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-xs);
+}
+
+.landing-card p {
+  font-family: var(--font-body);
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+  letter-spacing: 0.5px;
+}
+
+/* Disabled State */
+.landing-card.disabled {
+  cursor: not-allowed;
+  opacity: 0.25;
+  background-color: rgba(10, 10, 10, 0.2);
+}
+
+.landing-card.disabled:hover {
+  transform: none;
+  border-color: var(--color-border);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.landing-card.disabled::before {
+  display: none;
+}
+
+/* Transitions for active and inactive card states */
+.landing-card.fade-out {
+  opacity: 0 !important;
+  transform: scale(0.9) !important;
+  pointer-events: none;
+}
+
+.landing-card.active-zoom {
+  z-index: 101;
+  transform: scale(8) !important;
+  opacity: 0 !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  pointer-events: none;
+  transition: transform 1.0s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.9s ease-out, border-color 0.5s ease, background-color 0.5s ease;
+}
+
+/* ==================== Placeholder Screen ==================== */
+.placeholder-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 200;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+  pointer-events: auto;
+  opacity: 1;
+  visibility: visible;
+}
+
+.placeholder-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.placeholder-screen__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+}
+
+.placeholder-screen h2 {
+  font-family: var(--font-display);
+  font-size: var(--font-size-h1);
+  color: var(--color-text);
+  letter-spacing: 2px;
+}
+
+.placeholder-screen p {
+  font-size: var(--font-size-h2);
+  color: var(--color-text-secondary);
+}
+
+.btn {
+  font-family: var(--font-display);
+  font-size: var(--font-size-small);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 600;
+  background-color: #ffffff;
+  color: #000000;
+  border: none;
+  border-radius: 20px;
+  padding: var(--space-xs) var(--space-md);
+  cursor: pointer;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.08);
+}
+
+.btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.16);
+}
+
+/* ==================== Main Content Visibility ==================== */
+#main-content {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+#main-content.hidden {
+  opacity: 0;
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
+}
+
 /* Responsive Styles */
 @media (max-width: 1024px) {
   :root {
@@ -470,5 +669,19 @@ ul {
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-sm);
+  }
+
+  .landing-selector {
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: var(--space-xl);
+    overflow-y: auto;
+    gap: var(--space-sm);
+  }
+
+  .landing-card {
+    width: 100%;
+    max-width: 340px;
+    height: 160px;
   }
 }

@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   renderProjects();
   renderSketches();
+  initLandingSelector();
 });
 
 /**
@@ -86,4 +87,62 @@ function renderSketches() {
 
     container.appendChild(card);
   });
+}
+
+/**
+ * Initializes the Landing Selector screen cards and smooth transitions.
+ */
+function initLandingSelector() {
+  const landingSelector = document.getElementById('landing-selector');
+  const mainContent = document.getElementById('main-content');
+  const aiPlaceholder = document.getElementById('ai-project-placeholder');
+  const backToLandingBtn = document.getElementById('back-to-landing');
+  const cards = document.querySelectorAll('.landing-card');
+
+  if (!landingSelector || !mainContent) return;
+
+  cards.forEach(card => {
+    // Ignore disabled cards
+    if (card.classList.contains('disabled')) return;
+
+    card.addEventListener('click', () => {
+      const target = card.getAttribute('data-target');
+
+      if (target === 'portfolio') {
+        // 1. Fade out other cards
+        cards.forEach(c => {
+          if (c !== card) {
+            c.classList.add('fade-out');
+          }
+        });
+
+        // 2. Zoom the clicked card
+        card.classList.add('active-zoom');
+
+        // 3. Smooth transition to portfolio main content after zoom (1.0s)
+        setTimeout(() => {
+          landingSelector.classList.add('hidden');
+          mainContent.classList.remove('hidden');
+          
+          // Dispatch resize event to let the background canvas recalculate
+          window.dispatchEvent(new Event('resize'));
+        }, 950);
+      } 
+      else if (target === 'ai-project') {
+        // Show Coming Soon screen
+        landingSelector.classList.add('hidden');
+        if (aiPlaceholder) {
+          aiPlaceholder.classList.remove('hidden');
+        }
+      }
+    });
+  });
+
+  // Back button on AI Placeholder screen
+  if (backToLandingBtn && aiPlaceholder) {
+    backToLandingBtn.addEventListener('click', () => {
+      aiPlaceholder.classList.add('hidden');
+      landingSelector.classList.remove('hidden');
+    });
+  }
 }

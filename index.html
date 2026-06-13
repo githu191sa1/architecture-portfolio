@@ -11,7 +11,34 @@
   <!-- ==================== Background Animation Canvas ==================== -->
   <canvas id="bg-canvas" class="bg-canvas"></canvas>
 
-  <main>
+  <!-- ==================== Landing Selector ==================== -->
+  <div id="landing-selector" class="landing-selector">
+    <div class="landing-card" data-target="portfolio" data-id="card-1">
+      <h3>建築作品集</h3>
+      <p>Architecture Portfolio</p>
+    </div>
+    <div class="landing-card" data-target="ai-project" data-id="card-2">
+      <h3>AI Project</h3>
+      <p>Coming Soon</p>
+    </div>
+    <div class="landing-card disabled" data-id="card-3">
+      <h3>???</h3>
+      <p>施工中，請稍後</p>
+    </div>
+  </div>
+
+  <!-- ==================== AI Project Placeholder Screen ==================== -->
+  <div id="ai-project-placeholder" class="placeholder-screen hidden">
+    <div class="placeholder-screen__content">
+      <h2>AI Project</h2>
+      <p>施工中，請稍後</p>
+      <button id="back-to-landing" class="btn">返回首頁</button>
+    </div>
+  </div>
+
+  <!-- ==================== Main Content Wrapper ==================== -->
+  <div id="main-content" class="hidden">
+    <main>
     <!-- ==================== Hero Section ==================== -->
     <section id="hero" class="hero">
       <!-- Vertical Navigation Overlay on the Right -->
@@ -121,6 +148,7 @@
       </div>
     </div>
   </footer>
+  </div>
 
   <!-- Link data module first, then script logic -->
   <script src="./projects.js"></script>
