@@ -45,7 +45,10 @@
   padding: 0;
 }
 
-html {
+html, body {
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
   scroll-behavior: smooth;
 }
 
@@ -96,27 +99,25 @@ ul {
   padding-right: var(--space-md);
 }
 
-/* Hero Section */
-.hero {
-  height: var(--hero-height);
-  position: relative;
+/* Hero Section - Keep for typography / positioning in home panel */
+.hero__container {
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  border-bottom: var(--border-width) solid var(--color-border);
+  height: 100%;
 }
 
 /* Vertical Navigation Overlay on the Right */
 .hero-nav {
-  position: absolute;
+  position: fixed; /* Fixed relative to viewport */
   top: 50%;
   right: var(--space-lg); /* Place it on the right side with generous margin */
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
-  z-index: 10;
+  z-index: 200; /* High enough to stay above panels and particles canvas */
   align-items: flex-end; /* Align items to the right */
   pointer-events: none; /* Let clicks pass through except for children */
 }
@@ -127,21 +128,33 @@ ul {
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 600;
-  background-color: #ffffff; /* Solid white background */
-  color: #000000; /* Black text */
+  background-color: rgba(0, 0, 0, 0.65); /* Translucent dark capsule background */
+  color: var(--color-text); /* White/light text */
+  border: 1px solid rgba(255, 255, 255, 0.25); /* Thin white border */
   border-radius: 20px; /* Highly rounded corners */
   padding: var(--space-xs) var(--space-sm); /* Compact padding (8px 16px) */
-  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.04); /* Subtle white glow baseline */
-  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); /* Subtle dark shadow */
+  transition: transform var(--transition-normal), 
+              box-shadow var(--transition-normal),
+              background-color var(--transition-normal),
+              color var(--transition-normal),
+              border-color var(--transition-normal);
   display: inline-block;
   white-space: nowrap;
   pointer-events: auto; /* Enable clicks */
 }
 
 .hero-nav__item:hover {
-  color: #000000;
+  border-color: #ffffff; /* White border on hover */
   transform: translateX(-12px) scale(1.08); /* Slide left and scale up on hover */
-  box-shadow: 0 15px 35px rgba(255, 255, 255, 0.16); /* Glow shadow */
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1); /* Soft glow shadow */
+}
+
+.hero-nav__item.active {
+  background-color: #ffffff; /* Solid white background for active item */
+  color: #000000; /* Black text for high contrast */
+  border-color: #ffffff;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.25); /* Premium white glow */
 }
 
 .hero__content {
@@ -166,12 +179,6 @@ ul {
 }
 
 /* Sections Common Styles */
-.section {
-  padding-top: var(--space-xl);
-  padding-bottom: var(--space-xl);
-  border-bottom: var(--border-width) solid var(--color-border);
-}
-
 .section__title {
   font-family: var(--font-display);
   font-size: var(--font-size-h2);
@@ -179,6 +186,137 @@ ul {
   text-transform: uppercase;
   margin-bottom: var(--space-lg);
   letter-spacing: -0.5px;
+}
+
+/* ==================== Panels Layout Box ==================== */
+.panels-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding-right: calc(var(--space-lg) + 180px); /* Leave space for fixed navigation bar */
+  padding-left: var(--space-lg);
+  padding-top: var(--space-xl);
+  padding-bottom: var(--space-xl);
+  overflow-y: auto; /* Internal scrolling if panel content overflows vertically */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center-align content vertically */
+  opacity: 0;
+  transform: translateX(100%); /* Start hidden offscreen to the right */
+  pointer-events: none;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease-in-out;
+  z-index: 1;
+}
+
+.panel.active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+  z-index: 2;
+}
+
+.panel.exit {
+  opacity: 0;
+  transform: translateX(-50px); /* Exits slightly to the left */
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Contact & Social Panel Styles */
+.contact__grid, .social__grid {
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.contact__intro, .social__intro {
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 300;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin-bottom: var(--space-sm);
+}
+
+.contact__email-link {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 500;
+  color: var(--color-text);
+  border-bottom: 2px solid var(--color-border);
+  padding-bottom: 4px;
+  transition: border-color var(--transition-normal), color var(--transition-normal);
+  display: inline-block;
+}
+
+.contact__email-link:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.social__links-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  width: 100%;
+  max-width: 500px;
+}
+
+.social-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: var(--space-sm) var(--space-md);
+  border: var(--border-width) solid var(--color-border);
+  background-color: rgba(26, 26, 26, 0.4);
+  border-radius: 12px;
+  transition: transform var(--transition-normal), 
+              border-color var(--transition-normal), 
+              background-color var(--transition-normal),
+              box-shadow var(--transition-normal);
+}
+
+.social-btn:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-color: var(--color-accent);
+  background-color: rgba(26, 26, 26, 0.75);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.05);
+}
+
+.social-btn__name {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.social-btn__desc {
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+}
+
+/* Fixed Main Copyright styling */
+.main-copyright {
+  position: fixed;
+  bottom: var(--space-md);
+  left: var(--space-lg);
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+  opacity: 0.5;
+  z-index: 10;
+  pointer-events: none;
 }
 
 /* Projects Grid Section */
@@ -807,26 +945,23 @@ ul {
     --space-lg: 32px;
   }
 
-  .hero {
-    height: 100vh;
-    height: 100dvh;
-    position: relative;
-  }
-
   .hero-nav {
-    position: absolute;
+    position: fixed;
     top: auto;
-    right: auto;
-    bottom: var(--space-md);
+    right: 0;
+    bottom: 0;
     left: 0;
     width: 100%;
     height: auto;
     transform: none;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-sm);
-    padding-left: var(--space-md);
-    padding-right: var(--space-md);
+    grid-template-columns: repeat(3, 1fr); /* 3 columns x 2 rows */
+    gap: var(--space-xs);
+    padding: var(--space-sm);
+    background-color: rgba(0, 0, 0, 0.85); /* Solid dark background to cover content behind it */
+    backdrop-filter: blur(10px);
+    border-top: var(--border-width) solid var(--color-border);
+    z-index: 210;
     pointer-events: none;
   }
 
@@ -834,8 +969,22 @@ ul {
     position: static;
     transform: none !important;
     text-align: center;
-    padding: var(--space-xs);
+    padding: var(--space-xs) 4px;
+    font-size: 0.75rem; /* Smaller display font for phone screen */
     pointer-events: auto;
+    box-shadow: none !important;
+  }
+
+  .panel {
+    padding-right: var(--space-md) !important; /* Reset desktop right navigation spacing */
+    padding-left: var(--space-md) !important;
+    padding-top: var(--space-lg) !important;
+    padding-bottom: calc(var(--space-lg) + 120px) !important; /* Extra bottom padding for navigation bar */
+    justify-content: flex-start; /* Flow from top on mobile so scrolling works naturally */
+  }
+
+  .main-copyright {
+    display: none; /* Hide global copyright on mobile */
   }
 
   .project-card {
@@ -844,12 +993,6 @@ ul {
 
   .sketch-card {
     grid-column: span 12; /* 1 column layout on mobile */
-  }
-
-  .footer__container {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-sm);
   }
 
   .landing-side-img {

@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderProjects();
   renderSketches();
   initLandingSelector();
+  initNavigation();
   initAudio();
 
   // Trigger side images slide-in animation
@@ -135,8 +136,6 @@ function initLandingSelector() {
         quote.classList.add('fade-out');
       }
 
-
-
       // 1. Fade out other cards
       cards.forEach(c => {
         if (c !== card) {
@@ -153,6 +152,9 @@ function initLandingSelector() {
           landingSelector.classList.add('hidden');
           mainContent.classList.remove('hidden');
           
+          // Switch to home panel immediately upon entering the portfolio
+          switchPanel('panel-home');
+
           // Dispatch resize event to let the background canvas recalculate
           window.dispatchEvent(new Event('resize'));
         }, 950);
@@ -191,10 +193,81 @@ function initLandingSelector() {
 
       landingSelector.classList.remove('hidden');
 
+      // Reset panels to home panel for future entry
+      switchPanel('panel-home');
+
       // Schedule background music to play again after 60s idle gap if it has finished
       scheduleLandingLoop();
     });
   }
+}
+
+/**
+ * Initializes the navigation bar switches and panel transitions.
+ */
+function initNavigation() {
+  const navItems = document.querySelectorAll('.hero-nav__item');
+  
+  navItems.forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      
+      // Play click sound on navigation click
+      const clickAudio = new Audio('./assets/audio/click.mp3');
+      clickAudio.volume = 1.0;
+      clickAudio.play().catch(err => console.log("Navigation sound blocked", err));
+
+      const target = item.getAttribute('data-target');
+      if (target) {
+        switchPanel(`panel-${target}`);
+      }
+    });
+  });
+}
+
+/**
+ * Switches the active panel using a horizontal slide transition.
+ * @param {string} targetPanelId - The ID of the panel to switch to.
+ */
+function switchPanel(targetPanelId) {
+  const targetPanel = document.getElementById(targetPanelId);
+  if (!targetPanel) return;
+
+  const currentActive = document.querySelector('.panel.active');
+
+  // If the target panel is already active, do nothing
+  if (currentActive === targetPanel) return;
+
+  // 1. Handle exiting panel animation
+  if (currentActive) {
+    currentActive.classList.remove('active');
+    currentActive.classList.add('exit');
+  }
+
+  // 2. Reset other panels to right offscreen (remove .active and .exit)
+  const panels = document.querySelectorAll('.panel');
+  panels.forEach(p => {
+    if (p !== currentActive && p !== targetPanel) {
+      p.classList.remove('exit', 'active');
+    }
+  });
+
+  // 3. Slide in target panel from the right
+  targetPanel.classList.remove('exit');
+  // Trigger layout reflow to ensure it registers at translateX(100%) before animating
+  targetPanel.offsetHeight;
+  targetPanel.classList.add('active');
+
+  // 4. Update nav items active highlight state
+  const navItems = document.querySelectorAll('.hero-nav__item');
+  const targetName = targetPanelId.replace('panel-', '');
+  navItems.forEach(item => {
+    if (item.getAttribute('data-target') === targetName) {
+      item.classList.add('active');
+    } else {
+      item.classList.remove('active');
+    }
+  });
 }
 
 let openingAudio;

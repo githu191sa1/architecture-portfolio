@@ -68,116 +68,148 @@
 
   <!-- ==================== Main Content Wrapper ==================== -->
   <div id="main-content" class="hidden">
-    <main>
-    <!-- ==================== Hero Section ==================== -->
-    <section id="hero" class="hero">
-      <!-- Vertical Navigation Overlay on the Right -->
-      <nav class="hero-nav">
-        <a href="#hero" class="hero-nav__item">Home</a>
-        <a href="#projects" class="hero-nav__item">Projects</a>
-        <a href="#sketches" class="hero-nav__item">Sketches</a>
-        <a href="#about" class="hero-nav__item">About</a>
-        <a href="#contact" class="hero-nav__item">Contact</a>
-        <a href="#footer" class="hero-nav__item">Social</a>
-      </nav>
+    <!-- Vertical Navigation Overlay on the Right -->
+    <nav class="hero-nav">
+      <a href="#" class="hero-nav__item active" data-target="home">Home</a>
+      <a href="#" class="hero-nav__item" data-target="projects">Projects</a>
+      <a href="#" class="hero-nav__item" data-target="sketches">Sketches</a>
+      <a href="#" class="hero-nav__item" data-target="about">About</a>
+      <a href="#" class="hero-nav__item" data-target="contact">Contact</a>
+      <a href="#" class="hero-nav__item" data-target="social">Social</a>
+    </nav>
 
-      <div class="container hero__container">
-        <div class="hero__content">
-          <h1 class="hero__title">Li Yi Cheng</h1>
-          <p class="hero__slogan">"有時候繞遠路才是最短的捷徑<br>反而捷徑都在繞遠路"</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== Projects Grid ==================== -->
-    <section id="projects" class="section">
-      <div class="container">
-        <h2 class="section__title">Selected Projects</h2>
-        <div id="projects-container" class="projects-grid">
-          <!-- Dynamically loaded by script.js -->
-          <div class="project-card skeleton">
-            <div class="media-placeholder">
-              <span class="media-placeholder__fallback">Loading Project...</span>
-            </div>
-          </div>
-          <div class="project-card skeleton">
-            <div class="media-placeholder">
-              <span class="media-placeholder__fallback">Loading Project...</span>
-            </div>
-          </div>
-          <div class="project-card skeleton">
-            <div class="media-placeholder">
-              <span class="media-placeholder__fallback">Loading Project...</span>
-            </div>
+    <main class="panels-container">
+      <!-- ==================== Home Panel ==================== -->
+      <div id="panel-home" class="panel active" data-panel="home">
+        <div class="container hero__container">
+          <div class="hero__content">
+            <h1 class="hero__title">Li Yi Cheng</h1>
+            <p class="hero__slogan">"有時候繞遠路才是最短的捷徑<br>反而捷徑都在繞遠路"</p>
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- ==================== Sketches Section ==================== -->
-    <section id="sketches" class="section">
-      <div class="container">
-        <h2 class="section__title">Hand sketches</h2>
-        <div id="sketches-container" class="sketches-grid">
-          <!-- Dynamically loaded by script.js -->
-          <div class="sketch-card skeleton">
-            <div class="media-placeholder">
-              <span class="media-placeholder__fallback">Loading Sketch...</span>
+      <!-- ==================== Projects Panel ==================== -->
+      <div id="panel-projects" class="panel" data-panel="projects">
+        <div class="container">
+          <h2 class="section__title">Selected Projects</h2>
+          <div id="projects-container" class="projects-grid">
+            <!-- Dynamically loaded by script.js -->
+            <div class="project-card skeleton">
+              <div class="media-placeholder">
+                <span class="media-placeholder__fallback">Loading Project...</span>
+              </div>
             </div>
-          </div>
-          <div class="sketch-card skeleton">
-            <div class="media-placeholder">
-              <span class="media-placeholder__fallback">Loading Sketch...</span>
+            <div class="project-card skeleton">
+              <div class="media-placeholder">
+                <span class="media-placeholder__fallback">Loading Project...</span>
+              </div>
             </div>
-          </div>
-          <div class="sketch-card skeleton">
-            <div class="media-placeholder">
-              <span class="media-placeholder__fallback">Loading Sketch...</span>
+            <div class="project-card skeleton">
+              <div class="media-placeholder">
+                <span class="media-placeholder__fallback">Loading Project...</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- ==================== About Section ==================== -->
-    <section id="about" class="section">
-      <div class="container">
-        <h2 class="section__title">About</h2>
-        <div class="about__grid">
-          <div class="about__intro">
-            <p>
-              「建築不只是屏障，更是感官與環境的觸介。」我們專注於將空間回歸自然本質，透過精確的日光、風場與量體計算，為每座基地量身打造具備精神性與永續價值的建築實體。每一次的設計，都是對當代都市與生活型態的深度反思。
-            </p>
-          </div>
-          <div class="about__details">
-            <div class="about__detail-group">
-              <span class="about__detail-label">Name / 姓名</span>
-              <span class="about__detail-value">Li Yi Cheng</span>
+      <!-- ==================== Sketches Panel ==================== -->
+      <div id="panel-sketches" class="panel" data-panel="sketches">
+        <div class="container">
+          <h2 class="section__title">Hand sketches</h2>
+          <div id="sketches-container" class="sketches-grid">
+            <!-- Dynamically loaded by script.js -->
+            <div class="sketch-card skeleton">
+              <div class="media-placeholder">
+                <span class="media-placeholder__fallback">Loading Sketch...</span>
+              </div>
             </div>
-            <div class="about__detail-group">
-              <span class="about__detail-label">Background / 背景</span>
-              <span class="about__detail-value">國立成功大學建築學士 / 英國 AA 建築聯盟學院碩士</span>
+            <div class="sketch-card skeleton">
+              <div class="media-placeholder">
+                <span class="media-placeholder__fallback">Loading Sketch...</span>
+              </div>
             </div>
-            <div id="contact" class="about__detail-group">
-              <span class="about__detail-label">Contact / 聯絡方式</span>
-              <span class="about__detail-value">info@yichengli.arch</span>
+            <div class="sketch-card skeleton">
+              <div class="media-placeholder">
+                <span class="media-placeholder__fallback">Loading Sketch...</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-  </main>
 
-  <!-- ==================== Footer ==================== -->
-  <footer id="footer" class="footer">
-    <div class="container footer__container">
-      <p class="footer__copy">&copy; 2026 Li Yi Cheng. All rights reserved.</p>
-      <div class="footer__links">
-        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="footer__link">Instagram</a>
-        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+      <!-- ==================== About Panel ==================== -->
+      <div id="panel-about" class="panel" data-panel="about">
+        <div class="container">
+          <h2 class="section__title">About</h2>
+          <div class="about__grid">
+            <div class="about__intro">
+              <p>
+                「建築不只是屏障，更是感官與環境的觸介。」我們專注於將空間回歸自然本質，透過精確的日光、風場與量體計算，為每座基地量身打造具備精神性與永續價值的建築實體。每一次的設計，都是對當代都市與生活型態的深度反思。
+              </p>
+            </div>
+            <div class="about__details">
+              <div class="about__detail-group">
+                <span class="about__detail-label">Name / 姓名</span>
+                <span class="about__detail-value">Li Yi Cheng</span>
+              </div>
+              <div class="about__detail-group">
+                <span class="about__detail-label">Background / 背景</span>
+                <span class="about__detail-value">國立成功大學建築學士 / 英國 AA 建築聯盟學院碩士</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
+      <!-- ==================== Contact Panel ==================== -->
+      <div id="panel-contact" class="panel" data-panel="contact">
+        <div class="container">
+          <h2 class="section__title">Contact</h2>
+          <div class="contact__grid">
+            <div class="contact__intro">
+              <p>如果您對我的作品感興趣，或有任何合作提案，歡迎隨時與我聯繫。</p>
+            </div>
+            <div class="contact__details">
+              <div class="contact__detail-group">
+                <span class="contact__detail-label">Email / 電子郵件</span>
+                <span class="contact__detail-value">
+                  <a href="mailto:info@yichengli.arch" class="contact__email-link">info@yichengli.arch</a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== Social Panel ==================== -->
+      <div id="panel-social" class="panel" data-panel="social">
+        <div class="container">
+          <h2 class="section__title">Social Links</h2>
+          <div class="social__grid">
+            <div class="social__intro">
+              <p>追蹤我的社群平台，獲取最新的手繪速寫與建築專案動態。</p>
+            </div>
+            <div class="social__links-container">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-btn">
+                <span class="social-btn__name">Instagram</span>
+                <span class="social-btn__desc">分享日常手繪速寫與建築動態</span>
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-btn">
+                <span class="social-btn__name">LinkedIn</span>
+                <span class="social-btn__desc">專業學術背景與專案工作經歷</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Fixed footer copyright note inside main-content -->
+    <div class="main-copyright">
+      <p>&copy; 2026 Li Yi Cheng. All rights reserved.</p>
     </div>
-  </footer>
   </div>
 
   <!-- Link data module first, then script logic -->
