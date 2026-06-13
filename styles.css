@@ -310,25 +310,26 @@ ul {
 /* Fixed Main Copyright styling */
 .main-copyright {
   position: fixed;
-  bottom: calc(var(--space-md) + 8px); /* Vertically centered with the 40px wheel */
-  left: calc(var(--space-lg) + 56px); /* Positioned to the right of the 40px wheel (64px + 40px + 16px gap) */
+  bottom: var(--space-md);
+  left: var(--space-lg);
   font-size: var(--font-size-small);
   color: var(--color-text-secondary);
-  opacity: 0.5;
+  opacity: 0.6;
   z-index: 10;
   pointer-events: none;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8); /* Added text-shadow to ensure readability over the background wheel */
 }
 
 /* Rotating Wheel Decoration in the Bottom-Left Corner */
 .rotating-wheel {
   position: fixed;
-  bottom: var(--space-md);
-  left: var(--space-lg);
-  width: 40px;
-  height: 40px;
-  z-index: 10;
+  bottom: -40px; /* Bleed off-screen for a premium watermark feel */
+  left: -40px; /* Bleed off-screen for a premium watermark feel */
+  width: 240px;
+  height: 210px;
+  z-index: 5; /* Behind the copyright and text */
   pointer-events: none;
-  opacity: 0.45; /* Subtle opacity matching copyright */
+  opacity: 0.55; /* Obvious but not overwhelming */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -339,7 +340,7 @@ ul {
   height: 100%;
   object-fit: contain;
   animation: rotateClockwise 10s linear infinite;
-  filter: invert(1) brightness(1.2); /* Invert dark grey lines to light grey and boost brightness */
+  transform-origin: 48.84% 44.96%; /* Prevents wobbling by rotating around the centroid */
 }
 
 @keyframes rotateClockwise {
@@ -350,6 +351,7 @@ ul {
     transform: rotate(360deg);
   }
 }
+
 
 
 /* Projects Grid Section */
