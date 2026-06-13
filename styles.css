@@ -336,7 +336,7 @@ ul {
 /* Image Placeholder Style */
 .media-placeholder {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1 / 1; /* Changed to 1/1 square ratio to match sketches */
   background-color: var(--color-placeholder);
   border: var(--border-width) solid var(--color-border);
   position: relative;
@@ -411,8 +411,7 @@ ul {
 
 .project-card__title {
   font-family: var(--font-display);
-  font-size: var(--font-size-h2);
-  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-size: clamp(1.1rem, 1.8vw, 1.4rem); /* Matched to sketch-card title size */
   font-weight: 500;
   color: var(--color-text);
   line-height: 1.2;

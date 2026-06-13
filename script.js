@@ -45,11 +45,11 @@ function renderProjects() {
         <span class="media-placeholder__fallback" style="display: none;">IMAGE PLACEHOLDER</span>
       </div>
       <div class="project-card__info">
+        <h3 class="project-card__title">${project.title}</h3>
         <div class="project-card__meta">
           <span class="project-card__type">${project.type}</span>
           <span class="project-card__year">${project.year}</span>
         </div>
-        <h3 class="project-card__title">${project.title}</h3>
       </div>
     `;
 
