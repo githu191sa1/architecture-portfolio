@@ -478,8 +478,8 @@ ul {
   position: absolute;
   top: var(--space-xl);
   left: var(--space-lg);
-  width: calc(100% - var(--space-lg) * 2);
-  height: calc(100% - var(--space-xl) * 2);
+  right: calc(var(--space-lg) + 120px); /* Aligns perfectly with the grid view's right boundary and prevents nav overlap */
+  bottom: var(--space-xl);
   display: flex;
   gap: var(--space-lg);
   opacity: 0;
@@ -495,9 +495,9 @@ ul {
 }
 
 .detail-image-side {
-  flex: 0 0 42%;
-  width: 42%;
-  max-width: 42%;
+  flex: 0 0 45%;
+  width: 45%;
+  max-width: 45%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -526,9 +526,8 @@ ul {
 }
 
 .detail-content-side {
-  flex: 0 0 58%;
-  width: 58%;
-  max-width: 58%;
+  flex: 1;
+  min-width: 0; /* Prevents flex box container layout overflow */
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -1136,6 +1135,8 @@ ul {
     position: relative;
     top: 0;
     left: 0;
+    right: auto;
+    bottom: auto;
   }
   
   .detail-image-side {
