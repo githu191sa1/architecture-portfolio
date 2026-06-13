@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderProjects();
   renderSketches();
   initLandingSelector();
+  initAudio();
 
   // Trigger side images slide-in animation
   setTimeout(() => {
@@ -126,6 +127,13 @@ function initLandingSelector() {
         quote.classList.add('fade-out');
       }
 
+      // Hide audio toggle button and fade out opening music smoothly
+      const audioToggle = document.getElementById('audio-toggle');
+      if (audioToggle) {
+        audioToggle.classList.add('hidden');
+      }
+      fadeOutAudio(openingAudio);
+
       // 1. Fade out other cards
       cards.forEach(c => {
         if (c !== card) {
@@ -172,7 +180,100 @@ function initLandingSelector() {
       if (quote) {
         quote.classList.remove('fade-out');
       }
+
+      // Show audio toggle button and resume playing opening music
+      const audioToggle = document.getElementById('audio-toggle');
+      if (audioToggle) {
+        audioToggle.classList.remove('hidden');
+        if (!audioToggle.classList.contains('muted') && openingAudio) {
+          openingAudio.volume = 1.0;
+          openingAudio.play().catch(err => console.log("Audio play blocked", err));
+        }
+      }
+
       landingSelector.classList.remove('hidden');
     });
   }
+}
+
+let openingAudio;
+
+/**
+ * Initializes opening background audio and mute/unmute toggle.
+ */
+function initAudio() {
+  const audioToggle = document.getElementById('audio-toggle');
+  if (!audioToggle) return;
+
+  openingAudio = new Audio('./assets/audio/opening.mp3');
+  openingAudio.loop = true;
+  openingAudio.volume = 1.0;
+
+  let isMuted = false;
+
+  // Toggle button click handler
+  audioToggle.addEventListener('click', (e) => {
+    e.stopPropagation(); // Avoid triggering document click handler
+    isMuted = !isMuted;
+    if (isMuted) {
+      openingAudio.pause();
+      audioToggle.classList.add('muted');
+    } else {
+      openingAudio.play().catch(err => console.log("Audio play blocked", err));
+      audioToggle.classList.remove('muted');
+    }
+  });
+
+  // Try to play automatically
+  const startPlay = () => {
+    openingAudio.play().then(() => {
+      audioToggle.classList.remove('muted');
+      isMuted = false;
+    }).catch(err => {
+      // Autoplay blocked (expected) -> visual state is muted, wait for user click to unmute
+      audioToggle.classList.add('muted');
+      isMuted = true;
+
+      // Unmute on first click anywhere on the page
+      const firstClickUnmute = () => {
+        if (isMuted) {
+          openingAudio.play().then(() => {
+            audioToggle.classList.remove('muted');
+            isMuted = false;
+          }).catch(e => console.log("Unmute failed", e));
+        }
+        document.removeEventListener('click', firstClickUnmute);
+      };
+      document.addEventListener('click', firstClickUnmute);
+    });
+  };
+
+  startPlay();
+}
+
+/**
+ * Fades out an audio element smoothly.
+ */
+function fadeOutAudio(audio, duration = 1500) {
+  if (!audio) return;
+  const startVolume = audio.volume;
+  const steps = 30;
+  const intervalTime = duration / steps;
+  const volumeStep = startVolume / steps;
+  
+  let currentStep = 0;
+  const fadeInterval = setInterval(() => {
+    currentStep++;
+    if (audio.volume - volumeStep > 0) {
+      audio.volume -= volumeStep;
+    } else {
+      audio.volume = 0;
+    }
+    
+    if (currentStep >= steps) {
+      clearInterval(fadeInterval);
+      audio.pause();
+      audio.volume = startVolume; // Reset volume for next play
+    }
+  }, intervalTime);
 }
