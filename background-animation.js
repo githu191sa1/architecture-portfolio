@@ -3,6 +3,11 @@
  * Renders a slow-drifting, scroll-responsive wave field of particles using HTML5 Canvas.
  */
 
+// Mouse interaction constants
+const MOUSE_INFLUENCE_RADIUS = 120; // 影響範圍(px)
+const MOUSE_REPEL_STRENGTH = 0.08;  // 排斥力強度(0~1,越大越強)
+const RETURN_SPEED = 0.05;          // 粒子回彈速度
+
 // 1. CONFIGURATION CONSTANTS (Easily adjustable)
 const CONFIG = {
   // Particle Properties
@@ -45,16 +50,22 @@ class WaveParticle {
     
     // Constant horizontal drift
     this.driftX = Math.random() * (CONFIG.driftSpeedXMax - CONFIG.driftSpeedXMin) + CONFIG.driftSpeedXMin;
+
+    // Mouse repulsion offsets
+    this.offsetX = 0; // 因滑鼠產生的X偏移
+    this.offsetY = 0; // 因滑鼠產生的Y偏移
   }
 
   /**
-   * Updates particle coordinates based on horizontal drift and wave sine math.
+   * Updates particle coordinates based on horizontal drift, wave sine math, and mouse repulsion.
    * @param {number} canvasWidth - Viewport width
    * @param {number} canvasHeight - Viewport height
    * @param {number} time - Elapsed time in ms
    * @param {number} scrollY - Page scroll offset
+   * @param {number} mouseX - Mouse X coordinate
+   * @param {number} mouseY - Mouse Y coordinate
    */
-  update(canvasWidth, canvasHeight, time, scrollY) {
+  update(canvasWidth, canvasHeight, time, scrollY, mouseX, mouseY) {
     // 1. Apply horizontal drift and wrap around edges
     this.x += this.driftX;
     if (this.x > canvasWidth) {
@@ -75,6 +86,24 @@ class WaveParticle {
     // Composite offset calculation
     const displacement = (mainWave * 0.75 + microRipple * 0.25) * (CONFIG.waveAmplitude * this.ampScale);
     this.displayY = this.baseY + displacement;
+
+    // 3. Mouse repulsion physics
+    const dx = this.x + this.offsetX - mouseX;
+    const dy = this.displayY + this.offsetY - mouseY;
+
+    // High performance exclusion with Math.abs before full distance calculation
+    if (Math.abs(dx) < MOUSE_INFLUENCE_RADIUS && Math.abs(dy) < MOUSE_INFLUENCE_RADIUS) {
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      if (distance < MOUSE_INFLUENCE_RADIUS && distance > 0) {
+        const force = (MOUSE_INFLUENCE_RADIUS - distance) / MOUSE_INFLUENCE_RADIUS;
+        this.offsetX += (dx / distance) * force * MOUSE_REPEL_STRENGTH * 10;
+        this.offsetY += (dy / distance) * force * MOUSE_REPEL_STRENGTH * 10;
+      }
+    }
+
+    // Damping return: offset decays back to 0
+    this.offsetX *= (1 - RETURN_SPEED);
+    this.offsetY *= (1 - RETURN_SPEED);
   }
 
   /**
@@ -83,7 +112,7 @@ class WaveParticle {
    */
   draw(ctx) {
     ctx.beginPath();
-    ctx.arc(this.x, this.displayY, this.radius, 0, Math.PI * 2);
+    ctx.arc(this.x + this.offsetX, this.displayY + this.offsetY, this.radius, 0, Math.PI * 2);
     ctx.fillStyle = `rgba(${CONFIG.particleColor}, ${this.baseOpacity})`;
     ctx.fill();
   }
@@ -102,6 +131,10 @@ class WaveParticle {
   let viewportWidth = 0;
   let viewportHeight = 0;
   let startTime = performance.now();
+
+  // Track mouse coordinates
+  let mouseX = -9999;
+  let mouseY = -9999;
 
   /**
    * Resizes canvas and scales context for Retina/high-DPI screens.
@@ -151,7 +184,7 @@ class WaveParticle {
 
     // Update and draw each particle
     particles.forEach(particle => {
-      particle.update(viewportWidth, viewportHeight, time, scrollY);
+      particle.update(viewportWidth, viewportHeight, time, scrollY, mouseX, mouseY);
       particle.draw(ctx);
     });
 
@@ -160,6 +193,16 @@ class WaveParticle {
 
   // 4. EVENT LISTENERS
   window.addEventListener('resize', resize);
+
+  window.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  document.addEventListener('mouseleave', () => {
+    mouseX = -9999;
+    mouseY = -9999;
+  });
 
   // Initial trigger
   resize();
