@@ -4,9 +4,9 @@
  */
 
 // Mouse interaction constants
-const MOUSE_INFLUENCE_RADIUS = 120; // 影響範圍(px)
-const MOUSE_REPEL_STRENGTH = 0.08;  // 排斥力強度(0~1,越大越強)
-const RETURN_SPEED = 0.05;          // 粒子回彈速度
+const MOUSE_INFLUENCE_RADIUS = 200; // 影響範圍(px)
+const MOUSE_REPEL_STRENGTH = 0.25;  // 排斥力強度(0~1,越大越強)
+const RETURN_SPEED = 0.03;          // 粒子回彈速度
 
 // 1. CONFIGURATION CONSTANTS (Easily adjustable)
 const CONFIG = {
