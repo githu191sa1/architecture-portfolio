@@ -423,7 +423,6 @@ ul {
   position: absolute;
   bottom: 0;
   height: 100vh; /* Fill entire height of viewport */
-  width: 35vw; /* Set fixed width to allow cropping */
   object-fit: cover; /* Fill the area without distortion */
   pointer-events: none;
   z-index: 1; /* Under the cards, but inside landing selector */
@@ -433,6 +432,7 @@ ul {
 
 .landing-side-img-left {
   left: 0;
+  width: 35vw;
   transform-origin: bottom left;
   animation: slideInLeft 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   filter: invert(1) brightness(1.5) contrast(1.15); /* Boost brightness & contrast */
@@ -441,6 +441,7 @@ ul {
 
 .landing-side-img-right {
   right: 0;
+  width: 25vw; /* Scaled down to ~70% of 35vw */
   transform-origin: bottom right;
   animation: slideInRight 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   object-position: right center;
@@ -453,8 +454,8 @@ ul {
     opacity: 0;
   }
   100% {
-    transform: translateX(0) scale(1);
-    opacity: 0.95; /* Brighter */
+    transform: translateX(-30%) scale(1); /* Slide in 70% of the way (30% remains offscreen) */
+    opacity: 0.95;
   }
 }
 
@@ -464,8 +465,8 @@ ul {
     opacity: 0;
   }
   100% {
-    transform: translateX(0) scale(1);
-    opacity: 0.85; /* Symmetrical balance */
+    transform: translateX(30%) scale(1); /* Slide in 70% of the way (30% remains offscreen) */
+    opacity: 0.85;
   }
 }
 
@@ -477,11 +478,11 @@ ul {
 }
 
 .landing-side-img-left.fade-out {
-  transform: translateX(-150px) scale(0.95) !important; /* Retreat left */
+  transform: translateX(-100%) scale(0.95) !important; /* Retreat all the way left */
 }
 
 .landing-side-img-right.fade-out {
-  transform: translateX(150px) scale(0.95) !important; /* Retreat right */
+  transform: translateX(100%) scale(0.95) !important; /* Retreat all the way right */
 }
 
 .landing-card {
