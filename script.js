@@ -132,12 +132,7 @@ function initLandingSelector() {
         quote.classList.add('fade-out');
       }
 
-      // Hide audio toggle button and fade out opening music smoothly
-      const audioToggle = document.getElementById('audio-toggle');
-      if (audioToggle) {
-        audioToggle.classList.add('hidden');
-      }
-      fadeOutAudio(openingAudio);
+
 
       // 1. Fade out other cards
       cards.forEach(c => {
@@ -186,16 +181,10 @@ function initLandingSelector() {
         quote.classList.remove('fade-out');
       }
 
-      // Show audio toggle button and resume playing opening music
-      const audioToggle = document.getElementById('audio-toggle');
-      if (audioToggle) {
-        audioToggle.classList.remove('hidden');
-        if (!audioToggle.classList.contains('muted') && openingAudio) {
-          openingAudio.muted = false; // Ensure unmuted
-          openingAudio.volume = 1.0;
-          openingAudio.play().catch(err => console.log("Audio play blocked", err));
-        }
-      }
+      // Reset all cards transition state to fix the bug where cards disappeared
+      cards.forEach(c => {
+        c.classList.remove('fade-out', 'active-zoom');
+      });
 
       landingSelector.classList.remove('hidden');
     });
