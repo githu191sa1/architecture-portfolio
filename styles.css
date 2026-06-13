@@ -311,20 +311,19 @@ ul {
 .main-copyright {
   position: fixed;
   bottom: var(--space-md);
-  left: var(--space-lg);
+  left: 276px; /* Positioned to the right of the 240px wheel (20px + 240px + 16px gap) */
   font-size: var(--font-size-small);
   color: var(--color-text-secondary);
   opacity: 0.6;
   z-index: 10;
   pointer-events: none;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8); /* Added text-shadow to ensure readability over the background wheel */
 }
 
 /* Rotating Wheel Decoration in the Bottom-Left Corner */
 .rotating-wheel {
   position: fixed;
-  bottom: -40px; /* Bleed off-screen for a premium watermark feel */
-  left: -40px; /* Bleed off-screen for a premium watermark feel */
+  bottom: 20px; /* 0.5 cm gap from bottom edge */
+  left: 20px; /* 0.5 cm gap from left edge */
   width: 240px;
   height: 210px;
   z-index: 5; /* Behind the copyright and text */
@@ -334,6 +333,7 @@ ul {
   align-items: center;
   justify-content: center;
 }
+
 
 .rotating-wheel img {
   width: 100%;
