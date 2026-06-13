@@ -66,7 +66,7 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: -1;
+  z-index: 150; /* Placed in front to let particles drift over side images and text */
   pointer-events: none;
   display: block;
 }
