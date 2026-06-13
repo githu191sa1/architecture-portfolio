@@ -215,10 +215,10 @@ function initAudio() {
   openingAudio = new Audio('./assets/audio/opening.mp3');
   openingAudio.loop = false; // Disable default looping to allow silence gap
   openingAudio.volume = 1.0;
-  openingAudio.muted = true; // Default to muted to allow autoplay immediately on load
+  openingAudio.muted = false; // Default to UNMUTED
 
-  // Show muted state visually by default
-  audioToggle.classList.add('muted');
+  // Make sure toggle button shows unmuted state initially
+  audioToggle.classList.remove('muted');
 
   // Listen for audio ended to trigger a 60-second silence gap before playing again
   openingAudio.addEventListener('ended', () => {
@@ -241,17 +241,25 @@ function initAudio() {
     if (openingAudio.muted) {
       if (loopTimeout) clearTimeout(loopTimeout);
       audioToggle.classList.add('muted');
+      openingAudio.pause(); // Pause when muted to ensure absolute silence
     } else {
       audioToggle.classList.remove('muted');
-      // If paused (e.g. ended or blocked), play it
-      if (openingAudio.paused) {
-        openingAudio.play().catch(err => console.log("Audio play blocked", err));
-      }
+      openingAudio.play().catch(err => console.log("Audio play blocked", err));
     }
   });
 
-  // Play immediately (silently)
-  openingAudio.play().catch(err => console.log("Muted autoplay blocked", err));
+  // Try to play automatically (unmuted) on load
+  openingAudio.play().catch(err => {
+    console.log("Autoplay blocked, waiting for user interaction.");
+    // If blocked, wait for the first click anywhere on the document to play unmuted
+    const playOnFirstClick = () => {
+      if (!openingAudio.muted) {
+        openingAudio.play().catch(e => console.log("Play on click failed", e));
+      }
+      document.removeEventListener('click', playOnFirstClick);
+    };
+    document.addEventListener('click', playOnFirstClick);
+  });
 }
 
 /**
