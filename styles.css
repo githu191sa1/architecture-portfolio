@@ -561,7 +561,7 @@ ul {
 
 .detail-back-btn {
   position: absolute;
-  top: 0; /* Align to the top of the shifted cover container */
+  top: 76px; /* Shifted down by 2cm (76px) as requested */
   left: 0;
   background: none;
   border: none;
