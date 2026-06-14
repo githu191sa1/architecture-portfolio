@@ -1295,25 +1295,30 @@ ul {
     transform: none;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    padding: var(--space-sm);
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-xs) 4px !important; /* 縮小左右內距以釋放寬度 */
     background-color: rgba(10, 10, 10, 0.9);
     backdrop-filter: blur(10px);
     border-top: var(--border-width) solid var(--color-border);
     z-index: 210;
     pointer-events: none;
+    box-sizing: border-box !important;
   }
 
   .hero-nav__item {
-    flex: 1;
-    font-size: 0.7rem;
-    padding: var(--space-xs);
+    flex: 1 !important;
+    min-width: 0 !important; /* 確保超窄螢幕下正常收縮 */
+    font-size: 0.62rem !important; /* 縮小字體防止長單字溢出 */
+    padding: 8px 0 !important; /* 左右 padding 歸零以防撐開 */
+    margin: 0 3px !important; /* 用微小外距分隔按鈕 */
     position: static;
     width: auto;
     transform: none !important;
     text-align: center;
     pointer-events: auto;
     box-shadow: none !important;
+    white-space: nowrap !important;
   }
 
   .panel, #main-content {

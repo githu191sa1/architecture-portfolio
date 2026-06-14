@@ -4,15 +4,26 @@ const PROJECTS_PER_PAGE = 3;
 // Preload sound effects to prevent latency on mobile devices
 const audioCache = {
   click: new Audio('./assets/audio/click.mp3'),
-  hover: new Audio('./assets/audio/ling-ling.mp3'),
   dong: new Audio('./assets/audio/dong.mp3')
 };
+
+// Create a pool for hover sound to allow overlapping plays without lagging
+const hoverPool = [];
+const HOVER_POOL_SIZE = 6; // Multi-channel overlap for rapid mouse move
+let nextHoverIndex = 0;
+
+for (let i = 0; i < HOVER_POOL_SIZE; i++) {
+  const audio = new Audio('./assets/audio/ling-ling.mp3');
+  audio.preload = 'auto';
+  hoverPool.push(audio);
+}
 
 // Configure preload
 Object.values(audioCache).forEach(audio => {
   audio.preload = 'auto';
   audio.load();
 });
+hoverPool.forEach(audio => audio.load());
 
 document.addEventListener('DOMContentLoaded', () => {
   renderProjects();
@@ -265,12 +276,13 @@ function initNavigation() {
       }
     });
 
-    // Hover sound effect (using cached audio to prevent latency)
+    // Hover sound effect (using cached audio pool to prevent latency and cutting off)
     item.addEventListener('mouseenter', () => {
-      const sound = audioCache.hover;
+      const sound = hoverPool[nextHoverIndex];
       sound.currentTime = 0;
       sound.volume = 0.5;
       sound.play().catch(err => console.log('Audio play prevented:', err));
+      nextHoverIndex = (nextHoverIndex + 1) % HOVER_POOL_SIZE;
     });
   });
 }
