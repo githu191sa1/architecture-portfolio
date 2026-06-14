@@ -1330,8 +1330,8 @@ ul {
   .detail-container,
   .project-detail {
     flex-direction: column;
-    right: var(--space-sm);
-    left: var(--space-sm);
+    right: 0;
+    left: 0;
     border: none !important;
   }
 
@@ -1363,17 +1363,35 @@ ul {
     border-right: none;
     margin-top: 0;
     padding-right: 0;
-    padding-bottom: var(--space-sm);
+    padding-bottom: 0;
+    position: relative !important; /* 用於定位 back 按鈕 */
+    display: block !important;
   }
 
   .detail-image-side img {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important; /* 填滿 40vh 空間 */
     aspect-ratio: auto;
-    border: none !important; /* 移除大圖邊框 */
+    border: none !important;
+    display: block !important;
+  }
+
+  .detail-back-btn {
+    position: absolute !important;
+    top: 16px !important;
+    left: 16px !important;
+    font-size: 0.75rem !important; /* 縮小按鈕 */
+    background: rgba(0, 0, 0, 0.6) !important; /* 半透明背景 */
+    color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    border-radius: 16px !important;
+    padding: 6px 12px !important;
+    z-index: 100 !important;
+    margin-bottom: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    pointer-events: auto !important;
   }
 
   .detail-content-side {
@@ -1382,7 +1400,34 @@ ul {
     max-height: none;
     overflow: visible;
     padding-top: 0;
+    padding-left: var(--space-sm) !important; /* 防止貼邊 */
+    padding-right: var(--space-sm) !important; /* 防止貼邊 */
+    box-sizing: border-box !important;
     border: none !important; /* 移除內容邊框 */
+  }
+
+  .detail-subnav {
+    display: flex !important;
+    flex-wrap: nowrap !important; /* 強制不換行 */
+    overflow-x: auto !important;   /* 水平滾動 */
+    -webkit-overflow-scrolling: touch !important;
+    gap: var(--space-sm) !important;
+    padding-bottom: 8px !important;
+    border-bottom: var(--border-width) solid var(--color-border) !important;
+    scrollbar-width: none !important; /* 隱藏 firefox 滾動條 */
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .detail-subnav::-webkit-scrollbar {
+    display: none !important; /* 隱藏 chrome/safari 滾動條 */
+  }
+
+  .detail-subnav button {
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+    font-size: 0.85rem !important;
+    padding: 6px 12px !important;
   }
 
   #detail-content-display {
