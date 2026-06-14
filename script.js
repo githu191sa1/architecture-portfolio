@@ -1,6 +1,19 @@
 let currentPage = 1;
 const PROJECTS_PER_PAGE = 3;
 
+// Preload sound effects to prevent latency on mobile devices
+const audioCache = {
+  click: new Audio('./assets/audio/click.mp3'),
+  hover: new Audio('./assets/audio/ling-ling.mp3'),
+  dong: new Audio('./assets/audio/dong.mp3')
+};
+
+// Configure preload
+Object.values(audioCache).forEach(audio => {
+  audio.preload = 'auto';
+  audio.load();
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   renderProjects();
   initProjectsPagination();
@@ -143,8 +156,9 @@ function initLandingSelector() {
 
   cards.forEach(card => {
     card.addEventListener('click', () => {
-      // Play click sound immediately on any card click
-      const clickAudio = new Audio('./assets/audio/click.mp3');
+      // Play click sound immediately on any card click (using cached audio to prevent latency)
+      const clickAudio = audioCache.click;
+      clickAudio.currentTime = 0;
       clickAudio.volume = 1.0;
       clickAudio.play().catch(err => console.log("Click sound blocked", err));
 
@@ -251,9 +265,10 @@ function initNavigation() {
       }
     });
 
-    // Hover sound effect
+    // Hover sound effect (using cached audio to prevent latency)
     item.addEventListener('mouseenter', () => {
-      const sound = new Audio('./assets/audio/ling-ling.mp3');
+      const sound = audioCache.hover;
+      sound.currentTime = 0;
       sound.volume = 0.5;
       sound.play().catch(err => console.log('Audio play prevented:', err));
     });
@@ -446,8 +461,10 @@ function initProjectDetails() {
     const card = e.target.closest('.project-card');
     if (!card) return;
 
-    // Play click sound
-    const sound = new Audio('./assets/audio/dong.mp3');
+    // Play click sound (using cached audio to prevent latency)
+    const sound = audioCache.dong;
+    sound.currentTime = 0;
+    sound.volume = 1.0;
     sound.play().catch(err => console.log('Audio play prevented:', err));
 
     const projId = card.getAttribute('data-id');
