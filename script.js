@@ -280,7 +280,7 @@ function initNavigation() {
     item.addEventListener('mouseenter', () => {
       const sound = hoverPool[nextHoverIndex];
       sound.currentTime = 0;
-      sound.volume = 0.5;
+      sound.volume = 0.25;
       sound.play().catch(err => console.log('Audio play prevented:', err));
       nextHoverIndex = (nextHoverIndex + 1) % HOVER_POOL_SIZE;
     });
