@@ -1295,9 +1295,9 @@ ul {
     transform: none;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around; /* 讓不同寬度的選項在底部均勻分佈 */
     align-items: center;
-    padding: var(--space-xs) 8px !important; /* 舒適的左右 8px 內距 */
+    padding: var(--space-xs) 8px !important;
     background-color: rgba(10, 10, 10, 0.9);
     backdrop-filter: blur(10px);
     border-top: var(--border-width) solid var(--color-border);
@@ -1307,13 +1307,12 @@ ul {
   }
 
   .hero-nav__item {
-    flex: 1 !important;
-    min-width: 0 !important; /* 確保超窄螢幕下正常收縮 */
-    font-size: 0.62rem !important; /* 縮小字體防止長單字溢出 */
-    padding: 8px 8px !important; /* 提供左右各 8px 舒適留白，不擁擠 */
-    margin: 0 2px !important; /* 輕微的外距分隔按鈕 */
+    flex: 0 0 auto !important; /* 選項寬度依內容而定，不再強行等寬 */
+    font-size: 0.65rem !important; /* 字體微調回 0.65rem，確保清晰度 */
+    padding: 8px 10px !important; /* 提供左右各 10px 一致且舒適的留白 */
+    margin: 0 !important; /* 由彈性佈局自動分佈按鈕間距 */
     position: static;
-    width: auto;
+    width: auto !important;
     transform: none !important;
     text-align: center;
     pointer-events: auto;
