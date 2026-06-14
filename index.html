@@ -124,6 +124,8 @@
                 <div class="detail-subnav">
                   <button class="active" data-category="overview">設計說明</button>
                   <button data-category="plans">平面圖</button>
+                  <button data-category="sections">剖面圖</button>
+                  <button data-category="elevations">立面圖</button>
                   <button data-category="renders">渲染圖</button>
                 </div>
                 <div id="detail-content-display"></div>
@@ -209,6 +211,11 @@
     <div class="main-copyright">
       <p>&copy; 2026 Li Yi Cheng. All rights reserved.</p>
     </div>
+  </div>
+
+  <div id="lightbox" class="lightbox hidden">
+    <img id="lightbox-img" src="" alt="" />
+    <button class="lightbox-close">✕</button>
   </div>
 
   <!-- Link data module first, then script logic -->

@@ -155,18 +155,21 @@ class WaveParticle {
     // Apply scale matrix transformation for crystal clear rendering
     ctx.scale(dpr, dpr);
 
-    // Initial allocation of particles
-    if (particles.length === 0) {
-      initParticles();
-    }
+    // 根據視窗寬度調整粒子數量 (手機約為桌面的30%)
+    const isMobile = viewportWidth <= 768;
+    const targetParticleCount = isMobile ? Math.round(CONFIG.particleCount * 0.3) : CONFIG.particleCount;
+
+    // 重新初始化粒子分布(避免縮放後粒子集中一角)
+    initParticles(targetParticleCount);
   }
 
   /**
    * Allocates particle instances.
    */
-  function initParticles() {
+  function initParticles(count) {
+    const particleCount = count || CONFIG.particleCount;
     particles = [];
-    for (let i = 0; i < CONFIG.particleCount; i++) {
+    for (let i = 0; i < particleCount; i++) {
       particles.push(new WaveParticle(viewportWidth, viewportHeight));
     }
   }
@@ -193,6 +196,7 @@ class WaveParticle {
 
   // 4. EVENT LISTENERS
   window.addEventListener('resize', resize);
+  document.addEventListener('fullscreenchange', resize);
 
   window.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;

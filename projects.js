@@ -1,132 +1,154 @@
 const projects = [
   {
-    id: "proj-001",
-    title: "林間微光住宅",
-    subtitle: "Forest Glade Residence",
+    id: "proj-weaver",
+    title: "Weaver",
+    subtitle: "舊城社會生活支點",
+    year: 2026,
+    season: "Fall",
+    type: "Social Housing",
+    category: "Architecture",
+    coverImage: "./assets/images/projects/weaver/cover.webp",
+    detailImage: "./assets/images/projects/weaver/renders/render-0.webp",
+    tags: ["社會住宅", "都市縫合", "公共機能"],
+    tools: ["Archicad", "ComfyUI"],
+    details: {
+      overview: {
+        text: "DESIGN STRATEGY\n\n1. 重新定義社會住宅:打造舊城的「社會生活支點」\n呼應「生產之地,居住之所」的題目精神,設計拒絕讓社會住宅成為一棟封閉排外的居住機器,而是將其轉化為服務公眾,牽動城市鄰里互動的「空間裝置」與社會生活樞紐。\n\n2. 立體量體劃分:「巨型社福底座」與「居住空間」\n在量體構成上,將建築明確切分為兩大系統:上方是提供安居的「住宅空間」,下方則是整合了長照、托育等公共機能的「巨型社福底座」。這個龐大的底座在垂直向度上形成一種「圍繞」的保護感,守護著內部的居住者。\n\n3. 場所的重寫:「圍繞與穿插」消弭排外性\n為了回應彰化舊稱「半線」的歷史紋理與彎曲巷弄記憶,地面層(1樓)極度通透。刻意利用「虛空間(挑空)」作為面對20M大馬路的都市緩衝,並透過「穿插」的景觀動線,將都市人流平順地引導至後方的寧靜巷弄與警察宿舍區。這不僅消弭了巨大建築量體的排外性,更完美地將新舊都市邊界「交織(Weave)」在一起.",
+        images: [
+          "./assets/images/projects/weaver/overview/overview-1.webp",
+          "./assets/images/projects/weaver/overview/overview-2.webp",
+          "./assets/images/projects/weaver/overview/overview-3.webp"
+        ]
+      },
+      plans: {
+        images: [
+          "./assets/images/projects/weaver/plans/plan-1f.webp",
+          "./assets/images/projects/weaver/plans/plan-2f.webp",
+          "./assets/images/projects/weaver/plans/plan-3f.webp",
+          "./assets/images/projects/weaver/plans/plan-odd-floor.webp",
+          "./assets/images/projects/weaver/plans/plan-even-floor.webp"
+        ]
+      },
+      sections: {
+        images: [
+          "./assets/images/projects/weaver/sections/section-1.webp",
+          "./assets/images/projects/weaver/sections/section-2.webp"
+        ]
+      },
+      elevations: {
+        images: [
+          "./assets/images/projects/weaver/elevations/elevation-1.webp",
+          "./assets/images/projects/weaver/elevations/elevation-2.webp",
+          "./assets/images/projects/weaver/elevations/elevation-3.webp"
+        ]
+      },
+      renders: {
+        images: [
+          "./assets/images/projects/weaver/renders/render-0.webp",
+          "./assets/images/projects/weaver/renders/render-1.webp",
+          "./assets/images/projects/weaver/renders/render-2.webp",
+          "./assets/images/projects/weaver/renders/render-3.webp"
+        ]
+      }
+    }
+  },
+  {
+    id: "proj-the-nexus",
+    title: "The Nexus",
+    subtitle: "共同租賃住宅",
+    year: 2024,
+    season: "Fall",
+    type: "Student Housing",
+    category: "Architecture",
+    coverImage: "./assets/images/projects/the-nexus/cover.webp",
+    description: "以低限卻充實的生活美學,設計平衡私領域與公領域的共同租賃住宅。",
+    tags: ["共居", "學生宿舍", "社交鏈結"],
+    tools: ["Archicad"],
+    details: {
+      overview: {
+        text: "本次設計課題受電影《我的完美日常》啟發。片中主角平山先生的生活雖然簡約,但其單車通勤的城市日常,以及功能單純卻緊湊實用的二樓居所(如晨間盥洗與夜間閱讀空間的分區),皆體現了低限卻充實的生活美學。\n\n承此概念,本次題目旨在挑戰設計一套「共同租賃住宅」。設計核心在於運用創新的空間佈局,完美平衡住戶的私領域隱私與公領域互動,進而創造出一個能促進同儕學習與社交鏈結的共享生活空間。",
+        images: [
+          "./assets/images/projects/the-nexus/overview/overview-1.webp",
+          "./assets/images/projects/the-nexus/overview/overview-2.webp",
+          "./assets/images/projects/the-nexus/overview/overview-3.webp"
+        ]
+      },
+      plans: { images: [] },
+      sections: { images: [] },
+      elevations: { images: [] },
+      renders: { images: [] }
+    }
+  },
+  {
+    id: "proj-chained-tempest",
+    title: "Chained Tempest",
+    subtitle: "主題旅店",
     year: 2025,
     season: "Fall",
-    type: "Residential",
+    type: "Hospitality",
     category: "Architecture",
-    coverImage: `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%"><rect width="100" height="100" fill="%23181818" stroke="%232e2e2e" stroke-width="1"/><text x="50" y="50" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23a0a0a0" letter-spacing="1">PROJECT COVER</text></svg>`,
-    tags: ["量體分析", "日照模擬", "永續材料"],
-    tools: ["Archicad", "ComfyUI", "Twinmotion"],
+    coverImage: "./assets/images/projects/chained-tempest/cover.webp",
+    description: "以開放介面連結社區與人,將共享創意能量注入主題旅店,點亮城市文化角落。",
+    tags: ["文創旅店", "都市紋理", "永續設計"],
+    tools: ["Archicad"],
     details: {
       overview: {
-        text: "本案坐落於密林之中，設計核心在於重塑人、建築與自然的界線。藉由大面積的水平開窗與懸挑結構，將森林景觀引入室內，並利用當地回收木材與清水混凝土作為主體，展現低碳永續與極簡美學的和諧共存。",
+        text: "這是一場關於都市紋理、文創與永續的空間實踐。我們嘗試打破邊界,用開放的介面拉近社區與人的距離,並將共享的創意能量注入主題旅店中,點亮城市的文化角落。在這裡,工作、學習、策展與休憩不再有界線,旅店本身就是在地文化與創意社群的載體;流暢的人行動線與永續設計,則為環境留下了溫柔而長遠的價值。\n\n穿梭其間,廊道、平台與量體正進行著一場空間的對話。為了讓旅宿體驗更純粹,我們理出了更清晰、高效的動線,卻也在轉角細節處留下驚喜,拉長了空間的層次。面對戶外動線與私密性的微妙張力,我們透過巧妙的介面過渡,在「坦然開放」與「安心隱密」之間找到了交集,創造出一個既理性實用、又充滿情感溫度的旅人居所。",
         images: [
-          `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%23181818" stroke="%232e2e2e" stroke-width="1"/><rect x="5" y="5" width="90" height="65" fill="none" stroke="%233a3a3a" stroke-width="0.5" stroke-dasharray="2,2"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">DESIGN BOARD / DIAGRAM</text></svg>`
+          "./assets/images/projects/chained-tempest/overview/overview-1.webp",
+          "./assets/images/projects/chained-tempest/overview/overview-2.webp",
+          "./assets/images/projects/chained-tempest/overview/overview-3.webp"
         ]
       },
-      plans: [
-        `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%23121212" stroke="%232e2e2e" stroke-width="1"/><line x1="20" y1="15" x2="80" y2="15" stroke="%233a3a3a" stroke-width="0.5"/><line x1="20" y1="35" x2="80" y2="35" stroke="%233a3a3a" stroke-width="0.5"/><line x1="20" y1="55" x2="80" y2="55" stroke="%233a3a3a" stroke-width="0.5"/><line x1="35" y1="15" x2="35" y2="60" stroke="%233a3a3a" stroke-width="0.5"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">FLOOR PLAN DRAWING</text></svg>`
-      ],
-      renders: [
-        `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%231a1a1a" stroke="%232e2e2e" stroke-width="1"/><circle cx="50" cy="37.5" r="15" fill="none" stroke="%233a3a3a" stroke-width="0.5"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">PROJECT RENDER</text></svg>`
-      ]
+      plans: {
+        images: [
+          "./assets/images/projects/chained-tempest/plans/plan-1.webp",
+          "./assets/images/projects/chained-tempest/plans/plan-2.webp",
+          "./assets/images/projects/chained-tempest/plans/plan-3.webp",
+          "./assets/images/projects/chained-tempest/plans/plan-4.webp",
+          "./assets/images/projects/chained-tempest/plans/plan-5.webp",
+          "./assets/images/projects/chained-tempest/plans/plan-6.webp",
+          "./assets/images/projects/chained-tempest/plans/plan-7.webp"
+        ]
+      },
+      sections: {
+        images: [
+          "./assets/images/projects/chained-tempest/sections/section-1.webp",
+          "./assets/images/projects/chained-tempest/sections/section-2.webp"
+        ]
+      },
+      elevations: {
+        images: [
+          "./assets/images/projects/chained-tempest/elevations/elevation-1.webp",
+          "./assets/images/projects/chained-tempest/elevations/elevation-2.webp"
+        ]
+      },
+      renders: { images: [] }
     }
   },
   {
-    id: "proj-002",
-    title: "當代藝術浮游館",
-    subtitle: "Floating Contemporary Pavilion",
+    id: "proj-green-grass",
+    title: "Green, Green Grass of Knowledge",
+    subtitle: "食農教育圖書館",
     year: 2025,
-    season: "Spring",
-    type: "Culture",
+    season: "Fall",
+    type: "Library / Education",
     category: "Architecture",
-    coverImage: `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%"><rect width="100" height="100" fill="%23181818" stroke="%232e2e2e" stroke-width="1"/><text x="50" y="50" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23a0a0a0" letter-spacing="1">PROJECT COVER</text></svg>`,
-    tags: ["結構優化", "計算設計", "風場模擬"],
-    tools: ["Rhino", "Grasshopper", "V-Ray"],
+    coverImage: "./assets/images/projects/green-grass-of-knowledge/cover.webp",
+    description: "順應光照分區種植,融合生產、休憩、學習與身心療癒的食農教育空間。",
+    tags: ["食農教育", "永續農場", "身心療癒"],
+    tools: ["Archicad"],
     details: {
       overview: {
-        text: "此文化展館以「浮游」為概念，利用輕量化鋼構與半透明網格薄膜，創造出彷彿漂浮於水面之上的視覺張力。內部空間採取無柱大跨度設計，提供靈活的展覽動線，並利用自然對流風系統達到節能效果。",
+        text: "這份順應光照發展的分區種植計畫,最美妙之處在於溫柔地看待每一塊土地。我們順應自然的條件,讓陽光充足或陰涼的角落都能適得其所,不再有空間被浪費,也不再有作物勉強生長。從全日照到耐陰植物的巧妙錯落,讓這座農場一年四季都有收成的喜悅與綻放的花景,為來到這裡的人帶來深刻的體驗與啟發。\n\n這樣的規劃,賦予了農場更具韌性的生命力,讓這裡不再只是流汗耕作的田地,而是一個融合了生產、休憩、學習與身心療癒的多元空間。我們深信,食農教育的本質是帶領孩子踏出課本,親眼見證生命的成長軌跡;而這份課堂外的感動,同樣能觸動渴望回歸自然的成年人。知識就像大地的養分,灌溉了植物,也滋養了我們的心靈。",
         images: [
-          `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%23181818" stroke="%232e2e2e" stroke-width="1"/><rect x="5" y="5" width="90" height="65" fill="none" stroke="%233a3a3a" stroke-width="0.5" stroke-dasharray="2,2"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">DESIGN BOARD / DIAGRAM</text></svg>`
+          "./assets/images/projects/green-grass-of-knowledge/overview/overview-1.webp"
         ]
       },
-      plans: [
-        `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%23121212" stroke="%232e2e2e" stroke-width="1"/><line x1="20" y1="15" x2="80" y2="15" stroke="%233a3a3a" stroke-width="0.5"/><line x1="20" y1="35" x2="80" y2="35" stroke="%233a3a3a" stroke-width="0.5"/><line x1="20" y1="55" x2="80" y2="55" stroke="%233a3a3a" stroke-width="0.5"/><line x1="35" y1="15" x2="35" y2="60" stroke="%233a3a3a" stroke-width="0.5"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">FLOOR PLAN DRAWING</text></svg>`
-      ],
-      renders: [
-        `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%231a1a1a" stroke="%232e2e2e" stroke-width="1"/><circle cx="50" cy="37.5" r="15" fill="none" stroke="%233a3a3a" stroke-width="0.5"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">PROJECT RENDER</text></svg>`
-      ]
-    }
-  },
-  {
-    id: "proj-003",
-    title: "谷地冥想圖書館",
-    subtitle: "Valley Meditation Library",
-    year: 2024,
-    season: "Winter",
-    type: "Education",
-    category: "Design",
-    coverImage: `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%"><rect width="100" height="100" fill="%23181818" stroke="%232e2e2e" stroke-width="1"/><text x="50" y="50" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23a0a0a0" letter-spacing="1">PROJECT COVER</text></svg>`,
-    tags: ["地形適應", "自然採光", "聲學模擬"],
-    tools: ["Revit", "Enscape", "Photoshop"],
-    details: {
-      overview: {
-        text: "位於山谷低窪處的公共閱覽與冥想空間。建築依循山勢起伏，將半個量體嵌入土丘中以達到極佳的保溫與隔音效果。頂部天窗引入垂直漫射光，為室內營造出靜謐、神盛且適合閱讀與沉思的精神場所。",
-        images: [
-          `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%23181818" stroke="%232e2e2e" stroke-width="1"/><rect x="5" y="5" width="90" height="65" fill="none" stroke="%233a3a3a" stroke-width="0.5" stroke-dasharray="2,2"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">DESIGN BOARD / DIAGRAM</text></svg>`
-        ]
-      },
-      plans: [
-        `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%23121212" stroke="%232e2e2e" stroke-width="1"/><line x1="20" y1="15" x2="80" y2="15" stroke="%233a3a3a" stroke-width="0.5"/><line x1="20" y1="35" x2="80" y2="35" stroke="%233a3a3a" stroke-width="0.5"/><line x1="20" y1="55" x2="80" y2="55" stroke="%233a3a3a" stroke-width="0.5"/><line x1="35" y1="15" x2="35" y2="60" stroke="%233a3a3a" stroke-width="0.5"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">FLOOR PLAN DRAWING</text></svg>`
-      ],
-      renders: [
-        `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%231a1a1a" stroke="%232e2e2e" stroke-width="1"/><circle cx="50" cy="37.5" r="15" fill="none" stroke="%233a3a3a" stroke-width="0.5"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">PROJECT RENDER</text></svg>`
-      ]
-    }
-  },
-  {
-    id: "proj-004",
-    title: "幾何懸浮別墅",
-    subtitle: "Suspended Geometric Villa",
-    year: 2024,
-    season: "Summer",
-    type: "Residential",
-    category: "Architecture",
-    coverImage: `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%"><rect width="100" height="100" fill="%23181818" stroke="%232e2e2e" stroke-width="1"/><text x="50" y="50" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23a0a0a0" letter-spacing="1">PROJECT COVER</text></svg>`,
-    tags: ["懸挑結構", "參數化幾何", "視覺對焦"],
-    tools: ["Rhino", "Grasshopper", "Lumion"],
-    details: {
-      overview: {
-        text: "本別墅設計立足於險峻的山壁之上，主體結構採用巨型幾何鋼箱樑懸挑出山體表面，創造出令人驚嘆的懸浮感與向谷地無限延伸的景觀視野。立面採用耐候鋼板與大片防眩光玻璃，將粗獷的地質質感與當代精準工藝完美交融。",
-        images: [
-          `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%23181818" stroke="%232e2e2e" stroke-width="1"/><rect x="5" y="5" width="90" height="65" fill="none" stroke="%233a3a3a" stroke-width="0.5" stroke-dasharray="2,2"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">DESIGN BOARD / DIAGRAM</text></svg>`
-        ]
-      },
-      plans: [
-        `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%23121212" stroke="%232e2e2e" stroke-width="1"/><line x1="20" y1="15" x2="80" y2="15" stroke="%233a3a3a" stroke-width="0.5"/><line x1="20" y1="35" x2="80" y2="35" stroke="%233a3a3a" stroke-width="0.5"/><line x1="20" y1="55" x2="80" y2="55" stroke="%233a3a3a" stroke-width="0.5"/><line x1="35" y1="15" x2="35" y2="60" stroke="%233a3a3a" stroke-width="0.5"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">FLOOR PLAN DRAWING</text></svg>`
-      ],
-      renders: [
-        `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%231a1a1a" stroke="%232e2e2e" stroke-width="1"/><circle cx="50" cy="37.5" r="15" fill="none" stroke="%233a3a3a" stroke-width="0.5"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">PROJECT RENDER</text></svg>`
-      ]
-    }
-  },
-  {
-    id: "proj-005",
-    title: "水岸生態特區",
-    subtitle: "Waterfront Ecological Zone",
-    year: 2024,
-    season: "Spring",
-    type: "Planning",
-    category: "Design",
-    coverImage: `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%"><rect width="100" height="100" fill="%23181818" stroke="%232e2e2e" stroke-width="1"/><text x="50" y="50" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23a0a0a0" letter-spacing="1">PROJECT COVER</text></svg>`,
-    tags: ["生態修復", "海綿城市", "親水景觀"],
-    tools: ["AutoCAD", "QGIS", "Photoshop"],
-    details: {
-      overview: {
-        text: "以生態永續與親水防洪為核心的都市水岸更新計劃。利用階梯式人工濕地、透水鋪面與雨水花園構築起海綿城市的微循環系統，有效過濾都市地表逕流，同時建立供居民漫步與動植物棲息的綠色廊道。",
-        images: [
-          `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%23181818" stroke="%232e2e2e" stroke-width="1"/><rect x="5" y="5" width="90" height="65" fill="none" stroke="%233a3a3a" stroke-width="0.5" stroke-dasharray="2,2"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">DESIGN BOARD / DIAGRAM</text></svg>`
-        ]
-      },
-      plans: [
-        `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%23121212" stroke="%232e2e2e" stroke-width="1"/><line x1="20" y1="15" x2="80" y2="15" stroke="%233a3a3a" stroke-width="0.5"/><line x1="20" y1="35" x2="80" y2="35" stroke="%233a3a3a" stroke-width="0.5"/><line x1="20" y1="55" x2="80" y2="55" stroke="%233a3a3a" stroke-width="0.5"/><line x1="35" y1="15" x2="35" y2="60" stroke="%233a3a3a" stroke-width="0.5"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">FLOOR PLAN DRAWING</text></svg>`
-      ],
-      renders: [
-        `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 75" width="100%" height="100%"><rect width="100" height="75" fill="%231a1a1a" stroke="%232e2e2e" stroke-width="1"/><circle cx="50" cy="37.5" r="15" fill="none" stroke="%233a3a3a" stroke-width="0.5"/><text x="50" y="37.5" dominant-baseline="middle" text-anchor="middle" font-family="'Space Grotesk', sans-serif" font-size="4" fill="%23888888" letter-spacing="1">PROJECT RENDER</text></svg>`
-      ]
+      plans: { images: [] },
+      sections: { images: [] },
+      elevations: { images: [] },
+      renders: { images: [] }
     }
   }
 ];

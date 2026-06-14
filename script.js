@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavigation();
   initAudio();
   initProjectDetails();
+  initLightbox();
 
   // Trigger side images slide-in animation
   setTimeout(() => {
@@ -249,6 +250,13 @@ function initNavigation() {
         switchPanel(`panel-${target}`);
       }
     });
+
+    // Hover sound effect
+    item.addEventListener('mouseenter', () => {
+      const sound = new Audio('./assets/audio/ling-ling.mp3');
+      sound.volume = 0.5;
+      sound.play().catch(err => console.log('Audio play prevented:', err));
+    });
   });
 }
 
@@ -426,10 +434,10 @@ function initProjectDetails() {
   const detailView = document.getElementById('project-detail');
   const gridView = document.getElementById('projects-grid-view');
   const backBtn = document.getElementById('project-detail-back');
-  const subnavBtns = document.querySelectorAll('.detail-subnav button');
+  const subnavContainer = document.querySelector('.detail-subnav');
   const contentDisplay = document.getElementById('detail-content-display');
 
-  if (!container || !detailView || !gridView || !backBtn) return;
+  if (!container || !detailView || !gridView || !backBtn || !subnavContainer) return;
 
   let currentProject = null;
 
@@ -437,6 +445,10 @@ function initProjectDetails() {
   container.addEventListener('click', (e) => {
     const card = e.target.closest('.project-card');
     if (!card) return;
+
+    // Play click sound
+    const sound = new Audio('./assets/audio/dong.mp3');
+    sound.play().catch(err => console.log('Audio play prevented:', err));
 
     const projId = card.getAttribute('data-id');
     currentProject = projects.find(p => p.id === projId);
@@ -446,7 +458,7 @@ function initProjectDetails() {
     const coverImage = document.getElementById('detail-cover-image');
     const projectTitle = document.getElementById('detail-project-title');
     if (coverImage) {
-      coverImage.src = currentProject.coverImage;
+      coverImage.src = currentProject.detailImage || currentProject.coverImage;
       coverImage.alt = currentProject.title;
       // Force instant scale down first, then offset to trigger smooth animate zoom
       coverImage.classList.remove('zoomed-in');
@@ -457,14 +469,8 @@ function initProjectDetails() {
       projectTitle.textContent = currentProject.title;
     }
 
-    // Reset subnav buttons active state
-    subnavBtns.forEach(btn => {
-      if (btn.getAttribute('data-category') === 'overview') {
-        btn.classList.add('active');
-      } else {
-        btn.classList.remove('active');
-      }
-    });
+    // Render subnav buttons dynamically
+    renderSubnav(currentProject);
 
     // Render default overview text
     renderCategory('overview');
@@ -480,15 +486,50 @@ function initProjectDetails() {
     }, 200);
   });
 
-  // 2. Click category sub-navigation
-  subnavBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      subnavBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const category = btn.getAttribute('data-category');
-      renderCategory(category);
+  // Dynamically renders the category navigation tabs based on project details
+  function renderSubnav(project) {
+    subnavContainer.innerHTML = '';
+    
+    const categories = [
+      { key: 'overview', title: '設計說明' },
+      { key: 'plans', title: '平面圖' },
+      { key: 'sections', title: '剖面圖' },
+      { key: 'elevations', title: '立面圖' },
+      { key: 'renders', title: '渲染圖' }
+    ];
+    
+    const projData = project.details || project.content;
+    
+    categories.forEach(cat => {
+      let show = false;
+      if (cat.key === 'overview') {
+        show = true;
+      } else if (projData && projData[cat.key]) {
+        const catData = projData[cat.key];
+        if (catData.images && Array.isArray(catData.images) && catData.images.length > 0) {
+          show = true;
+        }
+      }
+      
+      if (show) {
+        const btn = document.createElement('button');
+        btn.setAttribute('data-category', cat.key);
+        btn.textContent = cat.title;
+        if (cat.key === 'overview') {
+          btn.className = 'active';
+        }
+        
+        btn.addEventListener('click', () => {
+          const buttons = subnavContainer.querySelectorAll('button');
+          buttons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          renderCategory(cat.key);
+        });
+        
+        subnavContainer.appendChild(btn);
+      }
     });
-  });
+  }
 
   // 3. Render content category
   function renderCategory(category) {
@@ -500,7 +541,7 @@ function initProjectDetails() {
     setTimeout(() => {
       contentDisplay.innerHTML = '';
       
-      const details = currentProject.details;
+      const details = currentProject.details || currentProject.content;
       if (!details || !details[category]) {
         contentDisplay.innerHTML = '<p>無可用資料。</p>';
         contentDisplay.style.opacity = '1';
@@ -517,45 +558,77 @@ function initProjectDetails() {
         if (details.overview.images && Array.isArray(details.overview.images) && details.overview.images.length > 0) {
           p.style.marginBottom = 'var(--space-md)';
           
-          const galleryContainer = document.createElement('div');
-          galleryContainer.className = 'detail-gallery';
+          const gridContainer = document.createElement('div');
+          gridContainer.className = 'overview-images-grid';
           
           details.overview.images.forEach(imgSrc => {
             const imgContainer = document.createElement('div');
-            imgContainer.className = 'detail-gallery-img-wrapper';
+            imgContainer.className = 'overview-image-item';
             
             const img = document.createElement('img');
             img.src = imgSrc;
-            img.alt = 'Overview layout diagram';
-            img.className = 'detail-gallery-img';
+            img.alt = 'Overview diagram';
             img.loading = 'lazy';
+            img.style.cursor = 'pointer';
+            
+            img.addEventListener('click', () => {
+              if (window.openLightboxImage) {
+                window.openLightboxImage(img.src);
+              }
+            });
             
             imgContainer.appendChild(img);
+            gridContainer.appendChild(imgContainer);
+          });
+          
+          contentDisplay.appendChild(gridContainer);
+        }
+      } else {
+        // plans, sections, elevations, or renders: display images
+        const categoryData = details[category];
+        const images = (categoryData && categoryData.images) ? categoryData.images : [];
+
+        if (images.length === 0) {
+          const emptyMsg = document.createElement('p');
+          emptyMsg.className = 'detail-empty-text';
+          emptyMsg.textContent = '尚無內容';
+          contentDisplay.appendChild(emptyMsg);
+        } else {
+          const galleryContainer = document.createElement('div');
+          galleryContainer.className = 'detail-gallery';
+          
+          images.forEach(imgSrc => {
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'detail-image-item';
+            
+            const img = document.createElement('img');
+            img.src = imgSrc;
+            img.alt = category;
+            img.loading = 'lazy';
+            img.style.cursor = 'pointer';
+            
+            img.addEventListener('click', () => {
+              if (window.openLightboxImage) {
+                window.openLightboxImage(img.src);
+              }
+            });
+            
+            imgContainer.appendChild(img);
+            
+            // 僅在 plans 或 sections 類別顯示檔名
+            if (category === 'plans' || category === 'sections') {
+              const filename = imgSrc.split('/').pop().replace(/\.(webp|jpg|jpeg|png)$/i, '');
+              const span = document.createElement('span');
+              span.className = 'image-filename';
+              span.textContent = filename;
+              imgContainer.appendChild(span);
+            }
+            
             galleryContainer.appendChild(imgContainer);
           });
           
           contentDisplay.appendChild(galleryContainer);
         }
-      } else {
-        // plans or renders: display images
-        const galleryContainer = document.createElement('div');
-        galleryContainer.className = 'detail-gallery';
-        
-        details[category].forEach(imgSrc => {
-          const imgContainer = document.createElement('div');
-          imgContainer.className = 'detail-gallery-img-wrapper';
-          
-          const img = document.createElement('img');
-          img.src = imgSrc;
-          img.alt = category;
-          img.className = 'detail-gallery-img';
-          img.loading = 'lazy';
-          
-          imgContainer.appendChild(img);
-          galleryContainer.appendChild(imgContainer);
-        });
-        
-        contentDisplay.appendChild(galleryContainer);
       }
 
       // Fade in new content
@@ -575,5 +648,34 @@ function initProjectDetails() {
       coverImage.classList.remove('zoomed-in');
     }
   });
+}
+
+/**
+ * Initializes the Lightbox feature for image viewing.
+ */
+function initLightbox() {
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const closeBtn = document.querySelector('.lightbox-close');
+
+  if (!lightbox || !lightboxImg || !closeBtn) return;
+
+  function openLightbox(src) {
+    lightboxImg.src = src;
+    lightbox.classList.remove('hidden');
+  }
+
+  function closeLightbox() {
+    lightbox.classList.add('hidden');
+    lightboxImg.src = '';
+  }
+
+  closeBtn.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  // 將openLightbox暴露給外部使用(供圖片渲染時綁定點擊事件)
+  window.openLightboxImage = openLightbox;
 }
 
